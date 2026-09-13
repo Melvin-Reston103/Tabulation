@@ -1,0 +1,20 @@
+# Frontend
+tabulation-frontend/node_modules/
+tabulation-frontend/dist/
+
+# Backend
+tabulation-backend/node_modules/
+
+# Environment files
+.env
+*.env
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

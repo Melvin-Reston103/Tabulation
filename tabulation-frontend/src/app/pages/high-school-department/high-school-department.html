@@ -1,0 +1,348 @@
+<div class="bg-background text-on-background min-h-screen">
+  <header
+    class="bg-surface fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64"
+  >
+    <div class="flex items-center gap-sm">
+      <span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">SMC Tabulation</span>
+    </div>
+    <div class="flex items-center gap-md">
+      <button class="text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
+        <span class="material-symbols-outlined">help_outline</span>
+      </button>
+      <img
+        class="w-8 h-8 rounded-full border border-outline-variant"
+        alt="Admin Avatar"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhaXlOz5S3DeuduuFPqugp9Tl-5NRMtH0CQL6gcQ2bMfIgPhkQ7cmpD7gBnZxxGH2ChTsIduiuCn2jGfudkO1sSvyJkaKzAMm-TxGoE2vP_B78YVpmrnqmqGqnwtMxoIgPXBjpp0mgmfTvCuwqTE3aKeyJJVCEiHQjJcayhowugQgOZn7u1UUiyn37sVakTjqhiCRVvax1EzqvuTGbMRE04cLcmVMxsjFLZJ0yOyDHrK7IhmAX_IdLWg"
+      />
+    </div>
+  </header>
+
+  <nav
+    class="bg-surface-container-lowest h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+  >
+    <div class="mb-xl px-sm">
+      <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+      <p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Admin Command Center</p>
+    </div>
+    <button
+      class="bg-[#3B82F6] text-on-primary rounded-lg py-sm px-md flex items-center justify-center gap-xs font-label-md text-label-md mb-lg hover:bg-opacity-90 transition-colors w-full"
+    >
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      New Event
+    </button>
+    <ul class="flex-1 space-y-xs font-body-md text-body-md">
+      <li>
+        <a
+          class="text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container flex items-center gap-md py-sm px-sm bg-surface-container-high rounded-l-md"
+          href="#"
+        >
+          <span class="material-symbols-outlined" data-weight="fill">school</span>
+          High School Department
+        </a>
+      </li>
+      <li>
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/college-department">
+          <span class="material-symbols-outlined">account_balance</span>
+          College Department
+        </a>
+      </li>
+      <li>
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/games">
+          <span class="material-symbols-outlined">sports_esports</span>
+          Games
+        </a>
+      </li>
+      <li>
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/reports">
+          <span class="material-symbols-outlined">assessment</span>
+          Reports
+        </a>
+      </li>
+      <li>
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/viewing">
+          <span class="material-symbols-outlined">visibility</span>
+          Viewing
+        </a>
+      </li>
+    </ul>
+    <div class="mt-auto border-t border-outline-variant pt-md">
+      <ul class="space-y-xs font-body-md text-body-md">
+        <li>
+          <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" href="#">
+            <span class="material-symbols-outlined">settings</span>
+            Settings
+          </a>
+        </li>
+        <li>
+          <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/login">
+            <span class="material-symbols-outlined">logout</span>
+            Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="ml-64 mt-16 p-margin-desktop min-h-[calc(100vh-4rem)]">
+    <div class="mb-xl">
+      <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">High School Department</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant">Live overview of Faction standings and upcoming events.</p>
+    </div>
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-xl">
+      @for (item of factionTotals(); track item.faction.id) {
+        <div class="bg-surface-container-lowest border border-[#E2E8F0] rounded-xl p-lg flex flex-col justify-between hover:shadow-[0_4px_24px_rgba(15,23,42,0.08)] transition-shadow">
+          <div class="flex justify-between items-start mb-md">
+            <div class="flex items-center gap-sm">
+              <div class="w-3 h-3 rounded-full" [class]="item.visual.dot"></div>
+              <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">{{ item.faction.name }}</h3>
+            </div>
+            <span class="material-symbols-outlined text-outline-variant">{{ item.visual.icon }}</span>
+          </div>
+          <div class="flex items-end justify-between">
+            <div>
+              <div class="font-display-lg text-display-lg text-on-surface">{{ item.total }}</div>
+              <div class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Total Points</div>
+            </div>
+            <span
+              class="px-xs py-base rounded text-xs font-mono-data flex items-center gap-1"
+              [class.bg-green-100]="item.isLeading"
+              [class.text-green-800]="item.isLeading"
+              [class.bg-red-100]="!item.isLeading && item.diff > 0"
+              [class.text-red-800]="!item.isLeading && item.diff > 0"
+              [class.bg-slate-100]="item.diff === 0"
+              [class.text-slate-700]="item.diff === 0"
+            >
+              @if (item.diff === 0) {
+                <span class="material-symbols-outlined text-[12px]">remove</span>
+              } @else if (item.isLeading) {
+                <span class="material-symbols-outlined text-[12px]">arrow_upward</span>
+              } @else {
+                <span class="material-symbols-outlined text-[12px]">arrow_downward</span>
+              }
+              {{ item.diff }} pts
+            </span>
+          </div>
+          <div class="mt-md pt-md border-t border-[#E2E8F0]">
+            <div class="font-body-sm text-body-sm text-on-surface-variant mb-xs">Events Won</div>
+            <div class="font-headline-md text-headline-md text-on-surface">{{ item.eventsWon }} / {{ item.totalEvents }}</div>
+          </div>
+        </div>
+      }
+    </section>
+
+    <section class="bg-surface-container-lowest border border-[#E2E8F0] rounded-xl overflow-hidden">
+      <div class="p-lg border-b border-[#E2E8F0] flex justify-between items-center bg-surface-bright">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Table of Events</h3>
+        <div class="flex items-center gap-sm">
+          <button
+            class="px-md py-xs rounded border border-outline-variant text-error font-label-md text-label-md hover:bg-error-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-xs"
+            type="button"
+            [disabled]="isResettingAll()"
+            (click)="resetAllScores()"
+          >
+            <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+            {{ isResettingAll() ? 'Re-zeroing...' : 'Re-zero All Scores' }}
+          </button>
+          <div class="relative w-64">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+            <input
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
+              placeholder="Search events..."
+              type="text"
+              [value]="searchQuery()"
+              (input)="searchQuery.set($any($event.target).value)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-[#E2E8F0] bg-surface-container-lowest">
+              <th class="p-sm px-lg font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sticky top-0">Event Name</th>
+              @for (faction of factions(); track faction.id) {
+                <th class="p-sm px-lg font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sticky top-0 text-center">{{ faction.name }}</th>
+              }
+              <th class="p-sm px-lg font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sticky top-0 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="font-mono-data text-mono-data text-on-surface">
+            @for (game of paginatedGames(); track game.id; let odd = $odd) {
+              <tr class="border-b border-[#E2E8F0] hover:bg-surface-container-low transition-colors" [class.bg-surface-bright]="odd">
+                <td class="p-sm px-lg">{{ game.title }}</td>
+                @for (faction of factions(); track faction.id) {
+                  <td class="p-sm px-lg text-center">{{ scoreFor(game.id, faction.id)?.points ?? '—' }}</td>
+                }
+                <td class="p-sm px-lg text-right">
+                  <div class="flex items-center justify-end gap-sm">
+                    <button
+                      class="text-[#3B82F6] hover:underline font-label-md text-label-md"
+                      type="button"
+                      aria-label="Edit score"
+                      (click)="openUpdateScoreModal(game)"
+                    >
+                      <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <button
+                      class="text-on-surface-variant hover:text-error transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:text-on-surface-variant"
+                      type="button"
+                      aria-label="Reset score to zero"
+                      title="Reset score to zero"
+                      [disabled]="!factions().length || !gameScores().has(game.id)"
+                      (click)="resetScore(game)"
+                    >
+                      <span class="material-symbols-outlined">restart_alt</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td class="p-sm px-lg text-center text-on-surface-variant" [attr.colspan]="factions().length + 2">
+                  @if (isLoadingGames()) {
+                    Loading games...
+                  } @else if (loadError()) {
+                    {{ loadError() }}
+                  } @else {
+                    No High School games found.
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="p-sm border-t border-[#E2E8F0] flex justify-between items-center bg-surface-bright text-on-surface-variant font-label-md text-label-md px-lg">
+        <span>Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ totalEntries() }} entries</span>
+        <div class="flex items-center gap-1">
+          <button
+            class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant disabled:opacity-50"
+            type="button"
+            [disabled]="currentPage() === 1"
+            (click)="goToPreviousPage()"
+          >
+            <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+          </button>
+          <span class="px-sm font-label-md text-label-md text-on-surface">Page {{ currentPage() }} of {{ totalPages() }}</span>
+          <button
+            class="p-1 hover:bg-surface-container-high rounded text-on-surface disabled:opacity-50"
+            type="button"
+            [disabled]="currentPage() === totalPages()"
+            (click)="goToNextPage()"
+          >
+            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  @if (isUpdateScoreModalOpen()) {
+    <div
+      class="fixed inset-0 bg-tertiary/60 backdrop-blur-sm z-[60] flex items-center justify-center p-margin-mobile md:p-margin-desktop"
+      (click)="closeUpdateScoreModal()"
+    >
+      <div
+        class="bg-surface-container-lowest rounded-xl shadow-xl w-full max-w-[600px] flex flex-col z-[70] overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="update-score-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between px-lg py-md border-b border-surface-variant bg-surface">
+          <div class="flex items-center gap-sm">
+            <span class="material-symbols-outlined text-primary text-2xl">edit_square</span>
+            <div>
+              <h2 class="font-headline-sm text-headline-sm text-on-surface" id="update-score-modal-title">
+                Update Event Results
+              </h2>
+              <p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mt-1">
+                High School Department &middot; {{ selectedGame()?.title }}
+              </p>
+            </div>
+          </div>
+          <button
+            class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors"
+            aria-label="Close modal"
+            (click)="closeUpdateScoreModal()"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="p-lg flex-1 overflow-y-auto">
+          <div class="mb-lg bg-surface-container-low p-md rounded-lg border border-surface-variant">
+            <div class="flex items-center gap-xs text-secondary mb-2">
+              <span class="material-symbols-outlined text-[18px]">info</span>
+              <span class="font-label-md text-label-md">Scoring Protocol</span>
+            </div>
+            <div class="flex gap-md font-mono-data text-mono-data text-on-surface-variant">
+              <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#EAB308]"></span> 1st: 20 pts</div>
+              <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#94A3B8]"></span> 2nd: 15 pts</div>
+              <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#B45309]"></span> 3rd: 10 pts</div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            @for (faction of factionRanks(); track faction.factionId; let i = $index) {
+              <div
+                class="flex items-center gap-md p-md border border-outline-variant rounded-lg bg-surface-container-lowest hover:border-primary transition-colors focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
+              >
+                <div class="w-8 flex justify-center">
+                  <span class="material-symbols-outlined text-on-surface-variant">drag_indicator</span>
+                </div>
+                <div class="flex-1">
+                  <label class="block font-label-md text-label-md text-on-surface mb-1">{{ faction.factionName }}</label>
+                  <select
+                    class="w-full bg-surface border-none text-on-surface font-body-sm text-body-sm focus:ring-0 p-0 cursor-pointer"
+                    [value]="faction.rank"
+                    (change)="updateFactionRank(i, +$any($event.target).value)"
+                  >
+                    @for (rank of rankOptions(); track rank) {
+                      <option [value]="rank">{{ rankLabel(rank) }}</option>
+                    }
+                  </select>
+                </div>
+                <div
+                  class="w-12 h-12 rounded flex items-center justify-center font-headline-sm text-headline-sm"
+                  [class]="rankBadgeClasses(faction.rank)"
+                >
+                  {{ faction.rank }}
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-lg py-md border-t border-surface-variant bg-surface flex flex-col gap-sm">
+          @if (saveScoreError()) {
+            <p class="font-body-sm text-body-sm text-error">{{ saveScoreError() }}</p>
+          }
+          <div class="flex justify-end gap-sm">
+            <button
+              class="px-6 py-2 rounded border border-outline text-secondary font-label-md text-label-md hover:bg-surface-container-highest transition-colors focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+              (click)="closeUpdateScoreModal()"
+            >
+              Cancel
+            </button>
+            <button
+              class="px-6 py-2 rounded bg-[#3B82F6] text-on-primary font-label-md text-label-md hover:bg-[#2563EB] transition-colors focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:ring-offset-1 flex items-center gap-xs shadow-sm hover:shadow disabled:opacity-50 disabled:cursor-not-allowed"
+              [disabled]="isSavingScore()"
+              (click)="saveUpdateScore()"
+            >
+              <span class="material-symbols-outlined text-[18px]">save</span>
+              {{ isSavingScore() ? 'Saving...' : 'Save Changes' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

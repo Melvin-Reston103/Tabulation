@@ -1,0 +1,117 @@
+<div class="bg-background text-on-background min-h-screen flex flex-col font-body-md text-body-md">
+  <header
+    class="bg-surface text-primary font-body-md text-body-md w-full top-0 border-b border-outline-variant transition-all duration-200 ease-in-out z-50"
+  >
+    <div class="flex justify-between items-center px-margin-desktop h-16 w-full max-w-container-max mx-auto">
+      <div class="font-headline-sm text-headline-sm font-bold text-primary">SMC Tabulation</div>
+    </div>
+  </header>
+
+  <main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop bg-surface-container-low">
+    <div
+      class="bg-surface-container-lowest border border-surface-variant rounded-lg p-lg md:p-xl w-full max-w-[480px] shadow-[0_4px_24px_rgba(15,23,42,0.08)]"
+    >
+      <div class="text-center mb-lg">
+        <span class="material-symbols-outlined text-4xl text-primary mb-sm">dashboard_customize</span>
+        <h1 class="font-headline-md text-headline-md text-on-surface">Login</h1>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Secure Access to Command Center</p>
+      </div>
+
+      <form class="space-y-md" method="POST" (submit)="onSubmit($event)">
+        @if (errorMessage()) {
+          <div class="rounded border border-error bg-error-container px-3 py-2 font-body-sm text-body-sm text-on-error-container">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div>
+          <label class="block font-label-md text-label-md text-on-surface mb-xs" for="username">Username</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-on-surface-variant text-lg">person</span>
+            </div>
+            <input
+              class="w-full pl-10 pr-3 py-2 bg-surface border border-outline-variant rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
+              id="username"
+              [formField]="credentialsForm.username"
+              placeholder="Enter your username"
+              type="text"
+            />
+          </div>
+          @if (credentialsForm.username().touched() && credentialsForm.username().invalid()) {
+            <p class="mt-xs font-body-sm text-body-sm text-error">
+              {{ credentialsForm.username().errors()[0]?.message }}
+            </p>
+          }
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-xs">
+            <label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+            <a class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors" href="#">Forgot Password?</a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <span class="material-symbols-outlined text-on-surface-variant text-lg">lock</span>
+            </div>
+            <input
+              class="w-full pl-10 pr-3 py-2 bg-surface border border-outline-variant rounded text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-colors"
+              id="password"
+              [formField]="credentialsForm.password"
+              placeholder="••••••••"
+              type="password"
+            />
+          </div>
+          @if (credentialsForm.password().touched() && credentialsForm.password().invalid()) {
+            <p class="mt-xs font-body-sm text-body-sm text-error">
+              {{ credentialsForm.password().errors()[0]?.message }}
+            </p>
+          }
+        </div>
+
+        <div class="flex items-center pt-xs">
+          <input
+            class="h-4 w-4 rounded border-outline-variant text-primary focus:ring-primary bg-surface cursor-pointer"
+            id="remember-me"
+            name="remember-me"
+            type="checkbox"
+          />
+          <label class="ml-2 block font-body-sm text-body-sm text-on-surface cursor-pointer" for="remember-me">
+            Remember me
+          </label>
+        </div>
+
+        <button
+          class="w-full bg-[#3B82F6] hover:bg-blue-600 text-white font-label-md text-label-md py-3 rounded transition-colors duration-200 mt-md shadow-[0_2px_10px_rgba(59,130,246,0.3)] hover:shadow-[0_4px_14px_rgba(59,130,246,0.4)] flex justify-center items-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+          type="submit"
+          [disabled]="isSubmitting()"
+        >
+          <span>{{ isSubmitting() ? 'Signing In…' : 'Sign In' }}</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+      </form>
+
+      <div class="mt-lg text-center pt-md border-t border-surface-variant">
+        <p class="font-body-sm text-body-sm text-on-surface-variant">
+          Need help? <a class="text-secondary hover:text-primary underline transition-colors" href="#">Contact system administrator</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer
+    class="bg-surface-container-lowest text-secondary font-label-sm text-label-sm w-full bottom-0 border-t border-outline-variant transition-opacity duration-150"
+  >
+    <div class="flex flex-col md:flex-row justify-between items-center py-lg px-margin-desktop w-full max-w-container-max mx-auto">
+      <div class="mb-md md:mb-0">
+        <span class="font-label-md text-label-md font-semibold text-on-surface">SMC Tabulation System</span>
+        <span class="block mt-xs md:inline md:mt-0 md:ml-md">© 2024 SMC Tabulation System. All rights reserved.</span>
+      </div>
+      <div class="flex gap-md">
+        <a class="text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">Documentation</a>
+        <a class="text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+        <a class="text-on-secondary-fixed-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+</div>

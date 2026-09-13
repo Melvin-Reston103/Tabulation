@@ -1,0 +1,229 @@
+<div class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden print:h-auto print:overflow-visible print:bg-white">
+  <nav
+    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 print:hidden"
+  >
+    <div class="mb-xl flex items-center gap-md">
+      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
+        SMC
+      </div>
+      <div>
+        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+        <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
+      </div>
+    </div>
+    <button
+      class="w-full bg-tertiary-container text-on-tertiary-container hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors py-sm px-md rounded font-label-md text-label-md mb-lg flex items-center justify-center gap-sm"
+    >
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      New Event
+    </button>
+    <div class="flex-1 flex flex-col gap-sm">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+        <span class="material-symbols-outlined">school</span>
+        <span>High School Department</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span>College Department</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games">
+        <span class="material-symbols-outlined">sports_esports</span>
+        <span>Games</span>
+      </a>
+      <a
+        class="flex items-center gap-md px-md py-sm rounded text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container hover:bg-surface-container-high transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined" data-weight="fill">assessment</span>
+        <span>Reports</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing">
+        <span class="material-symbols-outlined">visibility</span>
+        <span>Viewing</span>
+      </a>
+    </div>
+    <div class="mt-auto flex flex-col gap-sm border-t border-outline-variant pt-md">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" href="#">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Settings</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/login">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <header
+    class="bg-surface text-primary fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64 duration-200 ease-in-out print:hidden"
+  >
+    <nav class="font-body-sm text-body-sm text-secondary" aria-label="Breadcrumb">
+      <span>Admin Command Center</span>
+      <span class="mx-xs">›</span>
+      <span class="text-on-surface font-semibold">Reports</span>
+    </nav>
+    <div class="flex items-center gap-md">
+      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer"></div>
+    </div>
+  </header>
+
+  <main
+    class="ml-64 mt-16 p-margin-desktop w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background print:ml-0 print:mt-0 print:w-full print:h-auto print:p-0 print:overflow-visible print:bg-white"
+  >
+    <div class="max-w-container-max mx-auto space-y-xl">
+      <div class="flex justify-between items-end print:hidden">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Departmental Score Reports</h2>
+          <p class="font-body-lg text-body-lg text-secondary">
+            Official tabulation results for the current intramural season.
+          </p>
+        </div>
+        <div class="flex gap-sm">
+          <button
+            class="px-md py-sm bg-surface-container-lowest border border-outline-variant text-on-surface rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md flex items-center gap-xs disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            [disabled]="!selectedDepartment()"
+            (click)="exportCsv()"
+          >
+            <span class="material-symbols-outlined text-[16px]">download</span>
+            Export CSV
+          </button>
+          <button
+            class="px-md py-sm bg-on-surface text-surface-container-lowest rounded hover:opacity-90 transition-opacity font-label-md text-label-md flex items-center gap-xs"
+            type="button"
+            (click)="printReport()"
+          >
+            <span class="material-symbols-outlined text-[16px]">print</span>
+            Print Report
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-md bg-surface-container-lowest border border-outline-variant rounded-lg p-1 print:hidden">
+        <div class="inline-flex gap-1">
+          @for (department of departments(); track department.id) {
+            <button
+              type="button"
+              class="px-lg py-xs rounded-md font-label-md text-label-md transition-colors"
+              [class.bg-on-surface]="selectedDepartment()?.id === department.id"
+              [class.text-surface-container-lowest]="selectedDepartment()?.id === department.id"
+              [class.font-semibold]="selectedDepartment()?.id === department.id"
+              [class.text-secondary]="selectedDepartment()?.id !== department.id"
+              (click)="selectDepartment(department.id)"
+            >
+              {{ department.name }}
+            </button>
+          }
+        </div>
+        <div class="h-6 w-px bg-outline-variant"></div>
+        <div class="flex items-center gap-xs text-secondary font-body-sm text-body-sm px-sm">
+          <span class="material-symbols-outlined text-[16px]">info</span>
+          Showing official finalized scores.
+        </div>
+      </div>
+
+      @if (isLoading()) {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl text-center font-body-md text-body-md text-secondary">
+          Loading reports...
+        </div>
+      } @else if (loadError()) {
+        <div class="bg-error-container text-on-error-container border border-outline-variant rounded-xl p-xl text-center font-body-md text-body-md">
+          {{ loadError() }}
+        </div>
+      } @else if (selectedDepartment(); as department) {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden print:border-0 print:rounded-none">
+          <div class="px-xl py-lg text-center border-b border-outline-variant">
+            <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">
+              {{ department.name }} Department Final Tally
+            </h3>
+            <p class="font-mono-data text-mono-data text-secondary uppercase tracking-wider mt-xs">
+              Generated: {{ generatedAt() | date: 'yyyy-MM-dd HH:mm:ss' }}
+            </p>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b-2 border-on-surface">
+                  <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                    Event / Category
+                  </th>
+                  @for (faction of factions(); track faction.id; let i = $index) {
+                    <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider text-center">
+                      <div>Faction {{ i + 1 }}</div>
+                      <div class="font-body-sm text-[10px] text-on-surface-variant normal-case tracking-normal mt-1">
+                        {{ faction.name }}
+                      </div>
+                    </th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
+                @for (row of tallyRows(); track row.gameId; let odd = $odd) {
+                  <tr class="border-b border-outline-variant" [class.bg-surface-container-low]="odd">
+                    <td class="py-sm px-lg font-body-md text-body-md text-on-surface">{{ row.title }}</td>
+                    @for (cell of row.cells; track $index) {
+                      <td
+                        class="py-sm px-lg font-mono-data text-mono-data text-center"
+                        [class.font-bold]="cell.isWinner"
+                        [class.bg-secondary-container]="cell.isWinner"
+                        [class.text-on-surface]="cell.isWinner"
+                        [class.text-secondary]="!cell.isWinner"
+                      >
+                        {{ cell.points }}
+                      </td>
+                    }
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td
+                      class="py-lg px-lg text-center font-body-sm text-body-sm text-secondary"
+                      [attr.colspan]="factions().length + 1"
+                    >
+                      No finalized events yet.
+                    </td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot>
+                <tr class="border-t-2 border-on-surface bg-surface-container-low">
+                  <td class="py-md px-lg font-label-md text-label-md text-on-surface uppercase font-bold">
+                    Grand Total
+                  </td>
+                  @for (total of grandTotals(); track $index) {
+                    <td
+                      class="py-md px-lg font-mono-data text-mono-data text-center font-bold"
+                      [class.text-on-tertiary-container]="total.isWinner"
+                      [class.text-on-surface]="!total.isWinner"
+                    >
+                      {{ total.points }}
+                    </td>
+                  }
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="px-xl py-xl flex justify-around gap-xl">
+            <div class="text-center">
+              <div class="border-t border-on-surface w-56 mx-auto mb-xs"></div>
+              <p class="font-label-md text-label-md font-semibold text-on-surface">Chief Tabulator</p>
+            </div>
+            <div class="text-center">
+              <div class="border-t border-on-surface w-56 mx-auto mb-xs"></div>
+              <p class="font-label-md text-label-md font-semibold text-on-surface">Athletics Director</p>
+            </div>
+          </div>
+        </div>
+      } @else {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl text-center font-body-md text-body-md text-secondary">
+          No departments found.
+        </div>
+      }
+    </div>
+  </main>
+</div>

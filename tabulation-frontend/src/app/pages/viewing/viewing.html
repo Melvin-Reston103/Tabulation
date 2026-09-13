@@ -1,0 +1,194 @@
+<div class="bg-gold-50 text-on-background font-body-md text-body-md antialiased min-h-screen flex flex-col">
+  <header class="bg-gradient-to-r from-maroon-900 via-maroon-700 to-maroon-800 border-b-4 border-gold-500 sticky top-0 z-40 shadow-lg">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop h-16 flex items-center justify-between gap-md">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-gold-400 text-2xl" data-weight="fill">military_tech</span>
+        <span class="font-headline-sm text-headline-sm font-bold text-gold-100 tracking-tight">SMC Live Scoreboard</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-lg space-y-xl">
+      @if (departments().length > 1) {
+        <div class="flex bg-maroon-100 p-xs rounded w-full sm:w-fit">
+          @for (department of departments(); track department.id) {
+            <button
+              type="button"
+              class="flex-1 sm:flex-none px-lg py-xs rounded font-label-md text-label-md transition-colors"
+              [class.bg-maroon-700]="selectedDepartment()?.id === department.id"
+              [class.text-gold-100]="selectedDepartment()?.id === department.id"
+              [class.shadow-sm]="selectedDepartment()?.id === department.id"
+              [class.text-maroon-700]="selectedDepartment()?.id !== department.id"
+              (click)="selectDepartment(department.id)"
+            >
+              {{ department.name }}
+            </button>
+          }
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xl text-center font-body-md text-body-md text-secondary">
+          Loading scores...
+        </div>
+      } @else if (loadError()) {
+        <div class="bg-error-container text-on-error-container border border-outline-variant rounded-lg p-xl text-center font-body-md text-body-md">
+          {{ loadError() }}
+        </div>
+      } @else if (selectedDepartment(); as department) {
+        <section>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-sm sm:gap-md">
+            @for (faction of factions(); track faction.id; let i = $index) {
+              @let total = grandTotals()[i];
+              @let accent = factionAccent(i);
+              @let rank = factionRanks()[i];
+              @let medal = rankMeta(rank);
+              <div
+                class="relative bg-surface-container-lowest border rounded-xl p-md pt-lg sm:p-lg sm:pt-xl overflow-hidden"
+                [class.border-gold-500]="total.isWinner"
+                [class.border-outline-variant]="!total.isWinner"
+                [class.shadow-[0_0_0_1px_rgba(201,162,39,0.4)]]="total.isWinner"
+              >
+                @if (total.isWinner) {
+                  <span class="absolute top-sm right-sm sm:top-md sm:right-md bg-maroon-900 text-gold-300 font-label-sm text-label-sm px-2 py-0.5 rounded uppercase tracking-wide flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[14px]" data-weight="fill">workspace_premium</span> Leader
+                  </span>
+                }
+                <div class="flex items-center justify-between gap-sm mt-sm sm:mt-md sm:flex-col sm:items-start">
+                  <div class="flex items-center gap-sm min-w-0">
+                    <span
+                      class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-label-sm text-label-sm font-bold shrink-0"
+                      [class]="medal.badge"
+                    >
+                      {{ rank }}
+                    </span>
+                    <span class="font-label-md text-label-md text-on-surface-variant font-bold truncate">{{ faction.name }}</span>
+                  </div>
+                  <div class="font-mono-data text-mono-data font-bold text-maroon-900 text-[22px] leading-none shrink-0 sm:mt-md sm:text-display-lg sm:font-display-lg sm:tracking-tight sm:leading-none">
+                    {{ total.points }}
+                  </div>
+                </div>
+                <p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mt-xs mb-xs sm:mt-0 sm:mb-sm">Pts Total</p>
+                <div class="w-full bg-surface-variant rounded-full h-1.5">
+                  <div class="h-1.5 rounded-full" [class]="accent.bar" [style.width.%]="standingWidth(total.points)"></div>
+                </div>
+              </div>
+            } @empty {
+              <div class="col-span-full bg-surface-container-lowest border border-outline-variant rounded-xl p-xl text-center font-body-md text-body-md text-secondary">
+                No factions found for this department.
+              </div>
+            }
+          </div>
+        </section>
+
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+          <div class="p-md border-b border-outline-variant flex justify-between items-center bg-maroon-900">
+            <h2 class="font-headline-sm text-headline-sm font-semibold text-gold-100">Event Breakdown</h2>
+            <button
+              type="button"
+              class="flex items-center gap-xs text-gold-300 hover:text-gold-100 font-label-md text-label-md transition-colors disabled:opacity-40 disabled:pointer-events-none"
+              [disabled]="tallyRows().length === 0"
+              (click)="exportCsv()"
+            >
+              <span class="material-symbols-outlined text-[18px]">download</span> Export
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-outline-variant bg-maroon-100">
+                  <th class="py-sm px-md font-label-sm text-label-sm text-maroon-700 uppercase tracking-wider font-semibold">
+                    Event Name
+                  </th>
+                  <th class="hidden sm:table-cell py-sm px-md font-label-sm text-label-sm text-maroon-700 uppercase tracking-wider font-semibold">
+                    Winner
+                  </th>
+                  @for (faction of factions(); track faction.id) {
+                    <th class="py-sm px-md font-label-sm text-label-sm text-maroon-700 uppercase tracking-wider font-semibold text-center">
+                      {{ faction.name }} Pts
+                    </th>
+                  }
+                </tr>
+              </thead>
+              <tbody class="font-body-sm text-body-sm text-on-surface">
+                @for (row of tallyRows(); track row.gameId; let odd = $odd) {
+                  <tr class="border-b border-outline-variant border-opacity-50" [class.bg-gold-50]="odd">
+                    <td class="py-sm px-md font-medium text-on-surface">{{ row.title }}</td>
+                    <td class="hidden sm:table-cell py-sm px-md">
+                      @if (row.winnerName) {
+                        <span class="inline-flex items-center gap-xs px-2 py-0.5 rounded font-label-sm text-label-sm bg-gold-100 text-maroon-700">
+                          <span class="w-1.5 h-1.5 bg-current rounded-full block"></span> {{ row.winnerName }}
+                        </span>
+                      } @else {
+                        <span class="text-secondary">—</span>
+                      }
+                    </td>
+                    @for (cell of row.cells; track $index) {
+                      <td
+                        class="py-sm px-md text-center font-mono-data text-mono-data"
+                        [class.font-bold]="cell.isWinner"
+                        [class.text-maroon-700]="cell.isWinner"
+                      >
+                        <span class="inline-flex items-center justify-center gap-xs">
+                          @if (cell.isWinner) {
+                            <span class="material-symbols-outlined sm:hidden text-[14px] text-gold-500" data-weight="fill">emoji_events</span>
+                          }
+                          {{ cell.points }}
+                        </span>
+                      </td>
+                    }
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td
+                      class="py-lg px-md text-center font-body-sm text-body-sm text-secondary"
+                      [attr.colspan]="factions().length + 2"
+                    >
+                      No finalized events yet.
+                    </td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot>
+                <tr class="bg-maroon-100 font-bold border-t-2 border-gold-500">
+                  <td class="py-sm px-md font-headline-sm text-headline-sm text-maroon-900 uppercase">
+                    Grand Total
+                  </td>
+                  <td class="hidden sm:table-cell py-sm px-md"></td>
+                  @for (total of grandTotals(); track $index) {
+                    <td
+                      class="py-sm px-md text-center font-mono-data text-[18px]"
+                      [class.text-maroon-900]="total.isWinner"
+                      [class.text-on-surface]="!total.isWinner"
+                    >
+                      <span class="inline-flex items-center justify-center gap-xs">
+                        @if (total.isWinner) {
+                          <span class="material-symbols-outlined sm:hidden text-[14px] text-gold-500" data-weight="fill">emoji_events</span>
+                        }
+                        {{ total.points }}
+                      </span>
+                    </td>
+                  }
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </section>
+      } @else {
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-xl text-center font-body-md text-body-md text-secondary">
+          No departments found.
+        </div>
+      }
+    </div>
+  </main>
+
+  <footer class="border-t-4 border-gold-500 bg-maroon-900 py-md">
+    <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop font-label-sm text-label-sm text-gold-200 text-center">
+      © {{ lastUpdated() | date: 'yyyy' }} SMC Intramurals
+    </div>
+  </footer>
+</div>
+

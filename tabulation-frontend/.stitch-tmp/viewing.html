@@ -1,0 +1,286 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>SMC Tabulation - Reports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed": "#d8e2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary-container": "#001a42",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "surface-tint": "#565e74",
+                    "surface-container": "#eceef0",
+                    "on-surface-variant": "#45464d",
+                    "primary-container": "#131b2e",
+                    "on-secondary-container": "#54647a",
+                    "primary-fixed": "#dae2fd",
+                    "tertiary": "#000000",
+                    "on-tertiary-fixed-variant": "#004395",
+                    "on-secondary": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "secondary-fixed": "#d3e4fe",
+                    "background": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-container": "#3980f4",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-fixed": "#131b2e",
+                    "on-surface": "#191c1e",
+                    "surface-bright": "#f7f9fb",
+                    "error": "#ba1a1a",
+                    "primary": "#000000",
+                    "surface-variant": "#e0e3e5",
+                    "on-tertiary-fixed": "#001a42",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface": "#f7f9fb",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "inverse-on-surface": "#eff1f3",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "secondary-container": "#d0e1fb",
+                    "surface-container-high": "#e6e8ea",
+                    "secondary": "#505f76",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-container": "#7c839b",
+                    "outline": "#76777d",
+                    "outline-variant": "#c6c6cd",
+                    "tertiary-fixed-dim": "#adc6ff",
+                    "surface-dim": "#d8dadc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "48px",
+                    "xs": "4px",
+                    "container-max": "1440px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "margin-mobile": "16px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "gutter": "24px",
+                    "margin-desktop": "32px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "mono-data": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "mono-data": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Top Navigation (Mobile) -->
+<nav class="md:hidden flex justify-between items-center px-margin-mobile w-full bg-surface h-16 sticky top-0 z-40 border-b border-outline-variant flat no shadows">
+<div class="font-headline-sm text-headline-sm font-bold text-primary">SMC Tabulation</div>
+<div class="flex gap-sm">
+<span class="material-symbols-outlined cursor-pointer active:opacity-80 text-primary" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer active:opacity-80 text-primary" data-icon="settings">settings</span>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLCpGj53v7bi0wIPs-9h3a2qJWCxtDmG1Aq_N_Qjs3xtVaefySx5R1Mb-JlOuUB1hV4rAdC52StExHIImPwd1sgf-xauKlamUd4C-yMI_QzMBU41SewGaZamfJjZsP1fjXnaTOEpK6F9QepubK1iLBiCUicocK2h8C9kkvjTPe3t1xJ1MicIDr54MGJqbzT0wkPGn304U0qyoKmEJn6_ApoNHZXCOeru9_CEpP6GdfD_euv5yV_KriRw">
+</div>
+</nav>
+<!-- Side Navigation (Desktop) -->
+<aside class="hidden md:flex flex-col h-full py-lg px-md bg-surface-container-low fixed left-0 top-0 w-64 z-50 border-r border-outline-variant flat no shadows">
+<div class="mb-xl flex items-center gap-sm px-md">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-on-primary font-bold">SMC</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-black text-primary leading-tight">SMC Tabulation</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Admin Command Center</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label-md text-label-md">High School Department</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-label-md text-label-md">College Department</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="sports_esports">sports_esports</span>
+<span class="font-label-md text-label-md">Games</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs hover:bg-surface-container-high transition-all text-secondary" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs hover:bg-surface-container-high transition-all bg-secondary-container text-on-secondary-container font-bold" href="#"><span class="material-symbols-outlined" data-icon="visibility">visibility</span><span class="font-label-md text-label-md">Viewing</span></a></nav>
+<div class="mt-auto space-y-xs pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg mb-xs text-secondary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 bg-surface min-h-screen">
+<!-- Desktop Top App Bar (Secondary Header) -->
+<header class="hidden md:flex justify-between items-center px-margin-desktop w-full bg-surface h-16 sticky top-0 z-30 border-b border-surface-variant">
+<div class="font-label-md text-label-md text-on-surface-variant flex items-center gap-sm">
+<span class="">Admin Command Center</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-bold">Viewing</span>
+</div>
+<div class="flex gap-md items-center">
+<span class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer text-on-surface-variant hover:text-primary transition-colors" data-icon="settings">settings</span>
+<div class="w-px h-6 bg-surface-variant mx-sm"></div>
+<img alt="Admin Profile" class="w-8 h-8 rounded-full border border-surface-variant cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCU6nqvvP_z4S0mY7olQspU1ij6cT2enrp_8f-qF2Q3r6Lcvxod85aEMakCnSJgcDmzD_QNh1_gmnGm7LBHdfR50ddyUhyaAZHV-_xsfgnt8M-0Qi51OQT73ug-sorD6oIRxGIxp6XoJZy58WWoopuRYsEIk2noyISvLgrBRGL9sshmD7OzTo2lnEJh_BskSGGUjgHUHbznCV0toHrtwpizoO0WgMhdSS51lxbPt7qC8C26NpSqUBcC_Q">
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto space-y-lg">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-surface-variant pb-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Departmental Score Viewing</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">Official tabulation results for the current intramural season.</p>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-col md:flex-row gap-md items-center bg-surface-container-lowest p-sm rounded-lg border border-surface-variant">
+<div class="flex bg-surface-container p-xs rounded w-full md:w-auto">
+<button class="flex-1 md:flex-none px-lg py-xs bg-surface-container-lowest text-primary rounded font-label-md text-label-md">
+                        High School
+                    </button>
+<button class="flex-1 md:flex-none px-lg py-xs text-on-surface-variant hover:text-primary font-label-md text-label-md transition-colors">
+                        College
+                    </button>
+</div>
+<div class="w-px h-8 bg-surface-variant hidden md:block"></div>
+<div class="flex items-center gap-sm text-on-surface-variant font-label-sm text-label-sm w-full md:w-auto px-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="info">info</span>
+                    Showing official finalized scores.
+                </div>
+</div>
+<!-- Report Paper / Canvas -->
+<div class="bg-surface-container-lowest border border-surface-variant rounded-lg p-lg md:p-xl shadow-[0_4px_24px_rgba(15,23,42,0.04)]">
+<!-- Official Header -->
+<div class="text-center mb-xl border-b border-surface-variant pb-lg">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">High School Department Final Tally</h2>
+<p class="font-mono-data text-mono-data text-secondary mt-xs uppercase">Generated: 2023-10-27 14:32:00 PST</p>
+</div>
+<!-- Data Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b-2 border-surface-variant">
+<th class="py-sm px-sm font-label-sm text-label-sm text-secondary uppercase tracking-wider">Event / Category</th>
+<th class="py-sm px-sm font-label-sm text-label-sm text-secondary uppercase tracking-wider text-right">Faction 1<br><span class="text-[10px] font-normal text-on-surface-variant">Red Dragons</span></th>
+<th class="py-sm px-sm font-label-sm text-label-sm text-secondary uppercase tracking-wider text-right">Faction 2<br><span class="text-[10px] font-normal text-on-surface-variant">Blue Wolves</span></th>
+<th class="py-sm px-sm font-label-sm text-label-sm text-secondary uppercase tracking-wider text-right">Faction 3<br><span class="text-[10px] font-normal text-on-surface-variant">Green Eagles</span></th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-md px-sm font-label-md text-label-md text-primary">Basketball (Men)</td>
+<td class="py-md px-sm text-right">85</td>
+<td class="py-md px-sm text-right font-bold text-tertiary-container bg-secondary-container/30">92</td>
+<td class="py-md px-sm text-right">78</td>
+</tr>
+<tr class="border-b border-surface-variant bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-md px-sm font-label-md text-label-md text-primary">Basketball (Women)</td>
+<td class="py-md px-sm text-right font-bold text-tertiary-container bg-secondary-container/30">88</td>
+<td class="py-md px-sm text-right">82</td>
+<td class="py-md px-sm text-right">85</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-md px-sm font-label-md text-label-md text-primary">Volleyball</td>
+<td class="py-md px-sm text-right">2</td>
+<td class="py-md px-sm text-right">1</td>
+<td class="py-md px-sm text-right font-bold text-tertiary-container bg-secondary-container/30">3</td>
+</tr>
+<tr class="border-b border-surface-variant bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-md px-sm font-label-md text-label-md text-primary">Cheerdance</td>
+<td class="py-md px-sm text-right font-bold text-tertiary-container bg-secondary-container/30">95.5</td>
+<td class="py-md px-sm text-right">89.0</td>
+<td class="py-md px-sm text-right">91.5</td>
+</tr>
+<tr class="border-b-2 border-primary hover:bg-surface-container-lowest/50 transition-colors">
+<td class="py-md px-sm font-label-md text-label-md text-primary">Debate</td>
+<td class="py-md px-sm text-right">75</td>
+<td class="py-md px-sm text-right font-bold text-tertiary-container bg-secondary-container/30">98</td>
+<td class="py-md px-sm text-right">82</td>
+</tr>
+<!-- Totals Row -->
+<tr class="bg-surface-container font-bold">
+<td class="py-lg px-sm font-headline-sm text-headline-sm text-primary uppercase">Grand Total</td>
+<td class="py-lg px-sm text-right text-[18px]">345.5</td>
+<td class="py-lg px-sm text-right text-[18px] text-[#3B82F6]">362.0</td>
+<td class="py-lg px-sm text-right text-[18px]">339.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Signatories -->
+<div class="mt-xl pt-lg border-t border-surface-variant flex flex-col md:flex-row justify-around gap-lg">
+<div class="text-center">
+<div class="border-b border-primary w-48 mx-auto mb-xs"></div>
+<p class="font-label-md text-label-md text-primary">Jane Doe</p>
+<p class="font-label-sm text-label-sm text-secondary">Chief Tabulator</p>
+</div>
+<div class="text-center mt-lg md:mt-0">
+<div class="border-b border-primary w-48 mx-auto mb-xs"></div>
+<p class="font-label-md text-label-md text-primary">John Smith</p>
+<p class="font-label-sm text-label-sm text-secondary">Athletics Director</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

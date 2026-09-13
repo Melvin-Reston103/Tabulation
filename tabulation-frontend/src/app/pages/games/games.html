@@ -1,0 +1,425 @@
+<div class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden">
+  <nav
+    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+  >
+    <div class="mb-xl flex items-center gap-md">
+      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
+        SMC
+      </div>
+      <div>
+        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+        <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
+      </div>
+    </div>
+    <button
+      class="w-full bg-tertiary-container text-on-tertiary-container hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors py-sm px-md rounded font-label-md text-label-md mb-lg flex items-center justify-center gap-sm"
+    >
+      <span class="material-symbols-outlined text-[18px]">add</span>
+      New Event
+    </button>
+    <div class="flex-1 flex flex-col gap-sm">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+        <span class="material-symbols-outlined">school</span>
+        <span>High School Department</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department">
+        <span class="material-symbols-outlined">account_balance</span>
+        <span>College Department</span>
+      </a>
+      <a
+        class="flex items-center gap-md px-md py-sm rounded text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container hover:bg-surface-container-high transition-colors"
+        href="#"
+      >
+        <span class="material-symbols-outlined">sports_esports</span>
+        <span>Games</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/reports">
+        <span class="material-symbols-outlined">assessment</span>
+        <span>Reports</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing">
+        <span class="material-symbols-outlined">visibility</span>
+        <span>Viewing</span>
+      </a>
+    </div>
+    <div class="mt-auto flex flex-col gap-sm border-t border-outline-variant pt-md">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" href="#">
+        <span class="material-symbols-outlined">settings</span>
+        <span>Settings</span>
+      </a>
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/login">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <header
+    class="bg-surface text-primary font-headline-sm text-headline-sm fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64 duration-200 ease-in-out"
+  >
+    <div class="font-headline-sm text-headline-sm font-bold text-on-surface">Games Management</div>
+    <div class="flex items-center gap-md">
+      <div class="relative w-64">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+        <input
+          class="w-full bg-surface-container-low border border-outline-variant rounded-full py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
+          placeholder="Search games..."
+          type="text"
+        />
+      </div>
+      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined">help_outline</span>
+      </button>
+      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer">
+        <img
+          alt="Admin Avatar"
+          class="w-full h-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuQl7euATkLRSk6kmVcs6U5QJCg-d6Ktqnt_oLdMDh9ALJVBqu42kF-kaklR3bw3zk6bIa9y5zp5LCrzi9iVbd-HTNbj2WBGoIBE9R3VQYq_sfZZ1JVyKaL-YAXKyzpMYNyInsafvU1-c1TpF2sW5lBuLq9uYC-Iq9hH7VIVy3b44S7LojqsrK80-pW1vN4qTAFtlqJ-AcNBHCfSsNbwiLVTGkqlB00DiNhe7Vow_pF5di01Uom3DXzw"
+        />
+      </div>
+    </div>
+  </header>
+
+  <main
+    class="ml-64 mt-16 p-margin-desktop w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background"
+    (click)="closeActionMenu()"
+  >
+    <div class="max-w-container-max mx-auto space-y-xl">
+      <div class="flex justify-between items-end">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Tournament Roster</h2>
+          <p class="font-body-lg text-body-lg text-secondary">Manage and track all scheduled and ongoing events.</p>
+        </div>
+        <div class="flex gap-sm">
+          <select
+            class="bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md py-sm px-md focus:ring-tertiary-container focus:border-tertiary-container text-secondary"
+            [value]="selectedDepartment()"
+            (change)="selectedDepartment.set($any($event.target).value)"
+          >
+            @for (department of departmentFilterOptions(); track department) {
+              <option [value]="department">{{ department }}</option>
+            }
+          </select>
+          <button
+            class="px-md py-sm rounded border border-outline-variant text-secondary hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-xs"
+            type="button"
+            (click)="openBulkUploadModal()"
+          >
+            <span class="material-symbols-outlined text-[16px]">upload</span>
+            Bulk Upload
+          </button>
+          <button
+            class="px-md py-sm bg-tertiary-container text-on-tertiary-container rounded hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors font-label-md text-label-md flex items-center gap-xs"
+            type="button"
+            (click)="openAddGameModal()"
+          >
+            <span class="material-symbols-outlined text-[16px]">add</span>
+            Add New Game
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
+          <div class="relative w-64">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+            <input
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
+              placeholder="Search games..."
+              type="text"
+              [value]="searchQuery()"
+              (input)="searchQuery.set($any($event.target).value)"
+            />
+          </div>
+          <button class="p-xs text-secondary hover:text-on-surface rounded hover:bg-surface-container-high transition-colors" type="button">
+            <span class="material-symbols-outlined text-[20px]">filter_list</span>
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-outline-variant bg-surface-container-low">
+                <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider w-16">No.</th>
+                <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider">Game Title</th>
+                <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider">Department</th>
+                <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant">
+              @for (game of paginatedGames(); track game.id; let odd = $odd; let i = $index) {
+                <tr class="hover:bg-surface-container-low transition-colors" [class.bg-surface-bright]="odd">
+                  <td class="py-sm px-lg font-mono-data text-mono-data text-secondary">{{ rangeStart() + i }}</td>
+                  <td class="py-sm px-lg">
+                    <div class="font-label-md text-label-md text-on-surface">{{ game.title }}</div>
+                  </td>
+                  <td class="py-sm px-lg font-body-sm text-body-sm text-secondary">{{ game.departmentName }}</td>
+                  <td class="py-sm px-lg text-right relative">
+                    <button
+                      class="text-secondary hover:text-on-surface p-xs rounded-full hover:bg-surface-container-high transition-colors"
+                      type="button"
+                      (click)="toggleActionMenu(game, $event); $event.stopPropagation()"
+                    >
+                      <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td class="py-lg px-lg text-center font-body-sm text-body-sm text-secondary" colspan="4">
+                    @if (isLoadingGames()) {
+                      Loading games...
+                    } @else {
+                      No games found.
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-sm border-t border-outline-variant flex justify-between items-center bg-surface text-secondary font-label-md text-label-md px-lg">
+          <span>Showing {{ rangeStart() }} to {{ rangeEnd() }} of {{ totalEntries() }} entries</span>
+          <div class="flex items-center gap-1">
+            <button
+              class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant disabled:opacity-50"
+              type="button"
+              [disabled]="currentPage() === 1"
+              (click)="goToPreviousPage()"
+            >
+              <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+            </button>
+            <span class="px-sm font-label-md text-label-md text-on-surface">Page {{ currentPage() }} of {{ totalPages() }}</span>
+            <button
+              class="p-1 hover:bg-surface-container-high rounded text-on-surface disabled:opacity-50"
+              type="button"
+              [disabled]="currentPage() === totalPages()"
+              (click)="goToNextPage()"
+            >
+              <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  @if (openMenuId() !== null && menuPosition(); as position) {
+    <div
+      class="fixed w-36 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-xl z-[100] text-left overflow-hidden"
+      [style.top.px]="position.top"
+      [style.left.px]="position.left"
+      (click)="$event.stopPropagation()"
+    >
+      @if (activeMenuGame(); as game) {
+        <button
+          class="w-full flex items-center gap-sm px-md py-sm font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors"
+          type="button"
+          (click)="updateGame(game)"
+        >
+          <span class="material-symbols-outlined text-[16px]">edit</span>
+          Update
+        </button>
+        <button
+          class="w-full flex items-center gap-sm px-md py-sm font-label-md text-label-md text-error hover:bg-surface-container-low transition-colors"
+          type="button"
+          (click)="deleteGame(game)"
+        >
+          <span class="material-symbols-outlined text-[16px]">delete</span>
+          Delete
+        </button>
+      }
+    </div>
+  }
+
+  @if (isBulkUploadModalOpen()) {
+    <div
+      class="fixed inset-0 bg-tertiary/60 backdrop-blur-sm z-[60] flex items-center justify-center p-margin-mobile md:p-margin-desktop"
+      (click)="closeBulkUploadModal()"
+    >
+      <div
+        class="bg-surface-container-lowest rounded-xl shadow-xl w-full max-w-lg flex flex-col z-[70] overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bulk-upload-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Modal Header -->
+        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface" id="bulk-upload-modal-title">Bulk Upload Games</h2>
+          <button
+            class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors"
+            aria-label="Close modal"
+            type="button"
+            (click)="closeBulkUploadModal()"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="p-lg flex-1">
+          <p class="font-body-sm text-body-sm text-secondary mb-lg">
+            Upload a CSV file with two columns per row: Game Title, Department.
+          </p>
+
+          <!-- Drag & Drop Zone -->
+          <div
+            class="border-2 border-dashed rounded-lg p-xl text-center transition-colors duration-200 cursor-pointer flex flex-col items-center justify-center mb-lg relative bg-surface-container-lowest group"
+            [class.border-outline-variant]="!isDraggingFile()"
+            [class.hover:bg-surface-container]="!isDraggingFile()"
+            [class.border-tertiary-container]="isDraggingFile()"
+            [class.bg-surface-container-low]="isDraggingFile()"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onFileDrop($event)"
+          >
+            <input
+              class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              type="file"
+              accept=".csv"
+              (change)="onFileSelected($event)"
+            />
+            <div
+              class="h-16 w-16 rounded-full flex items-center justify-center mb-md transition-colors"
+              [class]="isDraggingFile() ? 'bg-secondary-container text-on-tertiary-container' : 'bg-surface-container-highest'"
+            >
+              <span class="material-symbols-outlined text-[32px] text-on-surface-variant">cloud_upload</span>
+            </div>
+            @if (selectedFile(); as file) {
+              <h3 class="font-headline-sm text-headline-sm text-on-tertiary-container mb-xs">{{ file.name }}</h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-md">{{ formatFileSize(file.size) }} - Ready to upload</p>
+            } @else {
+              <h3 class="font-headline-sm text-headline-sm text-on-background mb-xs">Drag and drop your file here</h3>
+              <p class="font-body-sm text-body-sm text-secondary mb-md">or click to browse from your computer</p>
+            }
+            <div class="flex items-center gap-xs text-secondary opacity-80 mt-sm">
+              <span class="material-symbols-outlined text-[16px]">description</span>
+              <span class="font-label-sm text-label-sm uppercase">Supported: CSV (Max 10MB)</span>
+            </div>
+          </div>
+
+          <!-- Template Download & Info -->
+          <div class="flex justify-between items-center bg-surface-container-low p-md rounded-lg border border-outline-variant">
+            <div class="flex items-center">
+              <span class="material-symbols-outlined text-secondary mr-sm text-[20px]">info</span>
+              <span class="font-body-sm text-body-sm text-on-surface">Need the required format?</span>
+            </div>
+            <a class="font-label-md text-label-md text-on-tertiary-container hover:text-on-tertiary-fixed-variant hover:underline flex items-center transition-colors" href="#">
+              <span class="material-symbols-outlined mr-xs text-[16px]">download</span>
+              Download Template
+            </a>
+          </div>
+
+          @if (bulkUploadError(); as error) {
+            <p class="font-body-sm text-body-sm text-error mt-md">{{ error }}</p>
+          }
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-lg py-md border-t border-outline-variant bg-surface flex justify-end gap-md">
+          <button
+            class="px-lg py-sm rounded border border-outline text-secondary hover:bg-surface-container-high transition-colors font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-outline-variant"
+            type="button"
+            (click)="closeBulkUploadModal()"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-lg py-sm rounded bg-[#3B82F6] hover:bg-[#2563EB] text-white transition-colors font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:ring-offset-1 flex items-center gap-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            [disabled]="!selectedFile() || isBulkUploading()"
+            (click)="confirmBulkUpload()"
+          >
+            <span class="material-symbols-outlined text-[18px]">upload</span>
+            {{ isBulkUploading() ? 'Uploading...' : 'Upload' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (isAddGameModalOpen()) {
+    <div
+      class="fixed inset-0 bg-tertiary/60 backdrop-blur-sm z-[60] flex items-center justify-center p-margin-mobile md:p-margin-desktop"
+      (click)="closeAddGameModal()"
+    >
+      <div
+        class="bg-surface-container-lowest rounded-xl shadow-xl w-full max-w-lg flex flex-col z-[70] overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="add-game-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+        <!-- Modal Header -->
+        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface" id="add-game-modal-title">Add New Game</h2>
+          <button
+            class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors"
+            aria-label="Close modal"
+            type="button"
+            (click)="closeAddGameModal()"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="p-lg flex-1 flex flex-col gap-md">
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-on-surface" for="new-game-title">Game Title</label>
+            <input
+              id="new-game-title"
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded py-sm px-md font-body-md text-body-md focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
+              type="text"
+              placeholder="e.g., Men's Basketball Finals"
+              [value]="newGameTitle()"
+              (input)="newGameTitle.set($any($event.target).value)"
+            />
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-on-surface" for="new-game-department">Department</label>
+            <select
+              id="new-game-department"
+              class="w-full bg-surface-container-lowest border border-outline-variant rounded py-sm px-md font-body-md text-body-md focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
+              [value]="newGameDepartmentId()"
+              (change)="newGameDepartmentId.set($any($event.target).value ? +$any($event.target).value : null)"
+            >
+              <option [value]="null" disabled>Select Department</option>
+              @for (department of departments(); track department.id) {
+                <option [value]="department.id">{{ department.name }}</option>
+              }
+            </select>
+          </div>
+
+          @if (addGameError(); as error) {
+            <p class="font-body-sm text-body-sm text-error">{{ error }}</p>
+          }
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-lg py-md border-t border-outline-variant bg-surface flex justify-end gap-md">
+          <button
+            class="px-lg py-sm rounded border border-outline text-secondary hover:bg-surface-container-high transition-colors font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-outline-variant"
+            type="button"
+            (click)="closeAddGameModal()"
+          >
+            Cancel
+          </button>
+          <button
+            class="px-lg py-sm rounded bg-[#3B82F6] hover:bg-[#2563EB] text-white transition-colors font-label-md text-label-md focus:outline-none focus:ring-2 focus:ring-[#3B82F6] focus:ring-offset-1 flex items-center gap-sm disabled:opacity-50 disabled:cursor-not-allowed"
+            type="button"
+            [disabled]="!canSubmitNewGame() || isSavingNewGame()"
+            (click)="submitAddGame()"
+          >
+            Add Game
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

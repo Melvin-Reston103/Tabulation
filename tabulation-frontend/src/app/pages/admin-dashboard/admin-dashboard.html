@@ -1,0 +1,259 @@
+<div class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden min-h-screen">
+  <header
+    class="bg-surface text-primary fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant duration-200 ease-in-out flex justify-between items-center h-16 px-margin-desktop ml-64"
+  >
+    <div class="font-headline-sm text-headline-sm font-extrabold text-on-surface tracking-tight">SMC Tabulation</div>
+    <div class="flex items-center gap-md">
+      <div class="relative hidden lg:block">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-label-md text-label-md">search</span>
+        <input
+          class="pl-10 pr-4 py-2 border border-outline-variant rounded bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:border-on-tertiary-container focus:ring-1 focus:ring-on-tertiary-container outline-none transition-colors w-64"
+          placeholder="Search events..."
+          type="text"
+        />
+      </div>
+      <button class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-2 rounded-full hover:bg-surface-container">
+        <span class="material-symbols-outlined">notifications</span>
+      </button>
+      <button class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-2 rounded-full hover:bg-surface-container">
+        <span class="material-symbols-outlined">help_outline</span>
+      </button>
+      <div class="ml-sm w-10 h-10 rounded-full border border-outline-variant overflow-hidden cursor-pointer hover:border-on-tertiary-container transition-colors duration-200">
+        <img
+          alt="Admin Avatar"
+          class="w-full h-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0Y6oJ-GLvEKMYeXOxxwRiYIKsJ7xf9wmlcuTPJVBq6pMssxZ17CbkzsRlnyUNmYdln5PiilFKMSCXnnV4v5sNwnGgOmKYTcfg80pQ5ewGZJenWqN-hdqQP1HFo2PgbFt-WhJJFim61fn5bzOkEBWA4dYn7ZB-YJubT6muYf2GSwdGThhWAGfSguIA8tGnmvncqO8KTCJjCPB94_2UmcppLpLGw9CeeFi1aBa081j2Ae8z83baIEgbPw"
+        />
+      </div>
+    </div>
+  </header>
+
+  <nav
+    class="bg-surface-container-lowest text-primary h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+  >
+    <div class="mb-xl px-sm">
+      <div class="flex items-center gap-sm mb-sm">
+        <div class="w-8 h-8 rounded bg-tertiary-container flex items-center justify-center text-on-tertiary">
+          <span class="font-headline-sm text-headline-sm font-bold">S</span>
+        </div>
+        <div class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</div>
+      </div>
+      <div class="text-secondary font-label-sm text-label-sm uppercase tracking-wider">Admin Command Center</div>
+    </div>
+
+    <button
+      class="mb-lg w-full bg-on-tertiary-container text-on-primary py-2 px-4 rounded font-label-md text-label-md hover:bg-opacity-90 transition-colors shadow-sm flex items-center justify-center gap-2"
+    >
+      <span class="material-symbols-outlined" data-weight="fill">add</span>
+      New Event
+    </button>
+
+    <ul class="flex-grow flex flex-col gap-sm">
+      <li>
+        <a class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+          <span class="material-symbols-outlined">school</span>
+          High School Department
+        </a>
+      </li>
+      <li>
+        <a class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department">
+          <span class="material-symbols-outlined">account_balance</span>
+          College Department
+        </a>
+      </li>
+      <li>
+        <a class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games">
+          <span class="material-symbols-outlined">sports_esports</span>
+          Games
+        </a>
+      </li>
+      <li>
+        <a
+          class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors"
+          routerLink="/reports"
+        >
+          <span class="material-symbols-outlined">assessment</span>
+          Reports
+        </a>
+      </li>
+      <li>
+        <a
+          class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors"
+          routerLink="/viewing"
+        >
+          <span class="material-symbols-outlined">visibility</span>
+          Viewing
+        </a>
+      </li>
+    </ul>
+
+    <div class="mt-auto border-t border-outline-variant pt-md flex flex-col gap-sm">
+      <a class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors" href="#">
+        <span class="material-symbols-outlined">settings</span>
+        Settings
+      </a>
+      <a class="flex items-center gap-md px-sm py-2 rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/login">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <main class="ml-64 pt-20 px-lg pb-xl min-h-screen">
+    <div class="mb-lg">
+      <h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">Command Center</h1>
+      <p class="font-body-md text-body-md text-secondary mt-base">System overview and real-time tabulation status.</p>
+    </div>
+
+    <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+      <div
+        class="col-span-1 md:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-sm transition-shadow duration-200 group cursor-default relative overflow-hidden"
+      >
+        <div class="absolute top-0 right-0 w-32 h-32 bg-secondary-container opacity-20 rounded-full blur-2xl -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+        <div class="flex justify-between items-start mb-xl relative z-10">
+          <div class="flex items-center gap-sm text-on-surface-variant font-label-md text-label-md font-semibold">
+            <span class="material-symbols-outlined text-secondary">event_note</span>
+            Total Events
+          </div>
+        </div>
+        <div class="relative z-10">
+          <div class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data tracking-tight">42</div>
+          <div class="font-body-sm text-body-sm text-secondary mt-xs flex items-center gap-xs">
+            <span class="material-symbols-outlined text-[16px] text-[#16a34a]">trending_up</span>
+            +12% from last semester
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-span-1 md:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col justify-between hover:shadow-sm transition-shadow duration-200 group cursor-default relative overflow-hidden"
+      >
+        <div class="absolute top-0 right-0 w-32 h-32 bg-error-container opacity-20 rounded-full blur-2xl -mr-16 -mt-16 transition-transform group-hover:scale-110"></div>
+        <div class="flex justify-between items-start mb-xl relative z-10">
+          <div class="flex items-center gap-sm text-on-surface-variant font-label-md text-label-md font-semibold">
+            <span class="material-symbols-outlined text-secondary">sports_esports</span>
+            Active Games Tabulation
+          </div>
+          <span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-1 rounded flex items-center gap-1 animate-pulse">
+            <span class="w-1.5 h-1.5 bg-error rounded-full block"></span> LIVE
+          </span>
+        </div>
+        <div class="relative z-10">
+          <div class="font-display-lg text-display-lg font-bold text-on-surface font-mono-data tracking-tight">8</div>
+          <div class="font-body-sm text-body-sm text-secondary mt-xs">Currently processing scores</div>
+        </div>
+      </div>
+
+      <div class="col-span-1 md:col-span-12 mt-md">
+        <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden flex flex-col h-full">
+          <div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+            <h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Recent Tabulation Activities</h2>
+            <button class="flex items-center gap-xs text-secondary hover:text-on-surface font-label-md text-label-md transition-colors">
+              <span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-outline-variant bg-surface sticky top-0">
+                  <th class="py-sm px-md font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Event Name</th>
+                  <th class="py-sm px-md font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Department</th>
+                  <th class="py-sm px-md font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Status</th>
+                  <th class="py-sm px-md font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold text-right">Progress</th>
+                  <th class="py-sm px-md font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold text-right">Last Updated</th>
+                </tr>
+              </thead>
+              <tbody class="font-body-sm text-body-sm text-on-surface">
+                <tr class="border-b border-outline-variant border-opacity-50 hover:bg-surface-container transition-colors">
+                  <td class="py-sm px-md font-medium text-on-surface">Intramurals Chess Tournament</td>
+                  <td class="py-sm px-md text-secondary">College Department</td>
+                  <td class="py-sm px-md">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-tertiary-container text-on-tertiary-container">
+                      Calculating
+                    </span>
+                  </td>
+                  <td class="py-sm px-md text-right w-48">
+                    <div class="flex items-center justify-end gap-2">
+                      <span class="font-mono-data text-xs">85%</span>
+                      <div class="w-24 bg-surface-variant rounded-full h-1.5">
+                        <div class="bg-on-tertiary-container h-1.5 rounded-full" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-sm px-md font-mono-data text-secondary text-right">10:42 AM</td>
+                </tr>
+                <tr class="border-b border-outline-variant border-opacity-50 hover:bg-surface-container transition-colors">
+                  <td class="py-sm px-md font-medium text-on-surface">Science Quiz Bee Finals</td>
+                  <td class="py-sm px-md text-secondary">High School Department</td>
+                  <td class="py-sm px-md">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-container text-on-primary-container">
+                      Finalized
+                    </span>
+                  </td>
+                  <td class="py-sm px-md text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <span class="font-mono-data text-xs">100%</span>
+                      <div class="w-24 bg-surface-variant rounded-full h-1.5">
+                        <div class="bg-primary h-1.5 rounded-full" style="width: 100%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-sm px-md font-mono-data text-secondary text-right">09:15 AM</td>
+                </tr>
+                <tr class="border-b border-outline-variant border-opacity-50 hover:bg-surface-container transition-colors">
+                  <td class="py-sm px-md font-medium text-on-surface">Cheerdance Competition</td>
+                  <td class="py-sm px-md text-secondary">College Department</td>
+                  <td class="py-sm px-md">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-error-container text-on-error-container">
+                      Live Input
+                    </span>
+                  </td>
+                  <td class="py-sm px-md text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <span class="font-mono-data text-xs">40%</span>
+                      <div class="w-24 bg-surface-variant rounded-full h-1.5">
+                        <div class="bg-error h-1.5 rounded-full" style="width: 40%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-sm px-md font-mono-data text-secondary text-right">Just now</td>
+                </tr>
+                <tr class="hover:bg-surface-container transition-colors">
+                  <td class="py-sm px-md font-medium text-on-surface">Debate Preliminaries</td>
+                  <td class="py-sm px-md text-secondary">High School Department</td>
+                  <td class="py-sm px-md">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary-container text-on-secondary-container">
+                      Pending
+                    </span>
+                  </td>
+                  <td class="py-sm px-md text-right">
+                    <div class="flex items-center justify-end gap-2">
+                      <span class="font-mono-data text-xs text-secondary">0%</span>
+                      <div class="w-24 bg-surface-variant rounded-full h-1.5">
+                        <div class="bg-secondary h-1.5 rounded-full" style="width: 0%"></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="py-sm px-md font-mono-data text-secondary text-right">Yesterday</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="p-sm border-t border-outline-variant flex justify-between items-center bg-surface text-secondary font-label-md text-label-md">
+            <span class="pl-sm">Showing 1 to 4 of 42 entries</span>
+            <div class="flex gap-1 pr-sm">
+              <button class="p-1 hover:bg-surface-container-high rounded text-on-surface-variant disabled:opacity-50" disabled>
+                <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+              </button>
+              <button class="p-1 hover:bg-surface-container-high rounded text-on-surface">
+                <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
