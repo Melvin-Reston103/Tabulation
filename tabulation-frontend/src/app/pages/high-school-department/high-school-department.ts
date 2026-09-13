@@ -16,6 +16,7 @@ const FACTION_VISUALS: { dot: string; icon: string }[] = [
   { dot: 'bg-[#10b981]', icon: 'trending_flat' },
 ];
 
+// 0 = Forfeit (0 pts), 1 = 1st Place (20 pts), 2 = 2nd Place (15 pts), 3 = 3rd Place (10 pts)
 function pointsForRank(rank: number): number {
   switch (rank) {
     case 1:
@@ -54,9 +55,11 @@ export class HighSchoolDepartment {
 
   protected readonly department = signal<Department | null>(null);
   protected readonly factions = computed<Faction[]>(() => this.department()?.factions ?? []);
-  protected readonly rankOptions = computed(() =>
-    Array.from({ length: this.factions().length }, (_, i) => i + 1),
-  );
+  // Rank 0 (Forfeit) is always available alongside 1st..Nth place.
+  protected readonly rankOptions = computed(() => [
+    ...Array.from({ length: this.factions().length }, (_, i) => i + 1),
+    0,
+  ]);
 
   protected readonly games = signal<Game[]>([]);
   protected readonly isLoadingGames = signal(false);
@@ -279,11 +282,17 @@ export class HighSchoolDepartment {
   }
 
   protected rankLabel(rank: number): string {
-    return `${ordinal(rank)} Place - ${pointsForRank(rank)} pts`;
+    return rank === 0 ? 'Forfeit - 0 pts' : `${ordinal(rank)} Place - ${pointsForRank(rank)} pts`;
+  }
+
+  protected rankBadgeLabel(rank: number): string {
+    return rank === 0 ? 'F' : `${rank}`;
   }
 
   protected rankBadgeClasses(rank: number): string {
     switch (rank) {
+      case 0:
+        return 'bg-[#F1F5F9] text-[#64748B]';
       case 1:
         return 'bg-error-container text-error';
       case 2:

@@ -286,6 +286,7 @@
               <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#EAB308]"></span> 1st: 20 pts</div>
               <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#94A3B8]"></span> 2nd: 15 pts</div>
               <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#B45309]"></span> 3rd: 10 pts</div>
+              <div class="flex items-center gap-xs"><span class="w-2 h-2 rounded-full bg-[#64748B]"></span> Forfeit: 0 pts</div>
             </div>
           </div>
 
@@ -313,7 +314,7 @@
                   class="w-12 h-12 rounded flex items-center justify-center font-headline-sm text-headline-sm"
                   [class]="rankBadgeClasses(faction.rank)"
                 >
-                  {{ faction.rank }}
+                  {{ rankBadgeLabel(faction.rank) }}
                 </div>
               </div>
             }
