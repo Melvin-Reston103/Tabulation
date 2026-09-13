@@ -18,6 +18,16 @@ export class Games {
   private readonly gamesApi = inject(GamesApi);
   private readonly departmentsApi = inject(Departments);
 
+  protected readonly mobileMenuOpen = signal(false);
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen.update((open) => !open);
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
+
   protected readonly departments = signal<Department[]>([]);
   protected readonly departmentFilterOptions = computed(() => [
     ALL_DEPARTMENTS,

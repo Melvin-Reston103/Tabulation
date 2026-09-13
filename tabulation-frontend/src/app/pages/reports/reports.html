@@ -1,15 +1,29 @@
 <div class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden print:h-auto print:overflow-visible print:bg-white">
+  @if (mobileMenuOpen()) {
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden print:hidden" (click)="closeMobileMenu()"></div>
+  }
   <nav
-    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 print:hidden"
+    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 print:hidden transition-transform duration-300 ease-in-out lg:translate-x-0"
+    [class.-translate-x-full]="!mobileMenuOpen()"
+    [class.translate-x-0]="mobileMenuOpen()"
   >
-    <div class="mb-xl flex items-center gap-md">
-      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
-        SMC
+    <div class="mb-xl flex items-center justify-between gap-md">
+      <div class="flex items-center gap-md">
+        <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
+          SMC
+        </div>
+        <div>
+          <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+          <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
+        </div>
       </div>
-      <div>
-        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
-        <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
-      </div>
+      <button
+        class="lg:hidden text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-1 rounded-full hover:bg-surface-container-high"
+        type="button"
+        (click)="closeMobileMenu()"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
     <button
       class="w-full bg-tertiary-container text-on-tertiary-container hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors py-sm px-md rounded font-label-md text-label-md mb-lg flex items-center justify-center gap-sm"
@@ -17,27 +31,28 @@
       <span class="material-symbols-outlined text-[18px]">add</span>
       New Event
     </button>
-    <div class="flex-1 flex flex-col gap-sm">
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+    <div class="flex-1 flex flex-col gap-sm overflow-y-auto">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">school</span>
         <span>High School Department</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">account_balance</span>
         <span>College Department</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">sports_esports</span>
         <span>Games</span>
       </a>
       <a
         class="flex items-center gap-md px-md py-sm rounded text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container hover:bg-surface-container-high transition-colors"
         href="#"
+        (click)="closeMobileMenu()"
       >
         <span class="material-symbols-outlined" data-weight="fill">assessment</span>
         <span>Reports</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">visibility</span>
         <span>Viewing</span>
       </a>
@@ -55,36 +70,45 @@
   </nav>
 
   <header
-    class="bg-surface text-primary fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64 duration-200 ease-in-out print:hidden"
+    class="bg-surface text-primary fixed top-0 right-0 left-0 lg:left-64 z-40 border-b border-outline-variant flex justify-between items-center h-16 px-md sm:px-lg lg:px-margin-desktop duration-200 ease-in-out print:hidden"
   >
-    <nav class="font-body-sm text-body-sm text-secondary" aria-label="Breadcrumb">
-      <span>Admin Command Center</span>
-      <span class="mx-xs">›</span>
-      <span class="text-on-surface font-semibold">Reports</span>
-    </nav>
+    <div class="flex items-center gap-sm min-w-0">
+      <button
+        class="lg:hidden -ml-2 text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-2 rounded-full hover:bg-surface-container shrink-0"
+        type="button"
+        (click)="toggleMobileMenu()"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <nav class="font-body-sm text-body-sm text-secondary truncate" aria-label="Breadcrumb">
+        <span class="hidden sm:inline">Admin Command Center</span>
+        <span class="mx-xs hidden sm:inline">›</span>
+        <span class="text-on-surface font-semibold">Reports</span>
+      </nav>
+    </div>
     <div class="flex items-center gap-md">
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">notifications</span>
       </button>
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">settings</span>
       </button>
-      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer"></div>
+      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer shrink-0"></div>
     </div>
   </header>
 
   <main
-    class="ml-64 mt-16 p-margin-desktop w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background print:ml-0 print:mt-0 print:w-full print:h-auto print:p-0 print:overflow-visible print:bg-white"
+    class="lg:ml-64 mt-16 p-md sm:p-lg lg:p-margin-desktop w-full lg:w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background print:ml-0 print:mt-0 print:w-full print:h-auto print:p-0 print:overflow-visible print:bg-white"
   >
     <div class="max-w-container-max mx-auto space-y-xl">
-      <div class="flex justify-between items-end print:hidden">
+      <div class="flex flex-col gap-md lg:flex-row lg:justify-between lg:items-end print:hidden">
         <div>
-          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Departmental Score Reports</h2>
+          <h2 class="text-headline-lg-mobile lg:text-headline-lg font-bold text-on-surface mb-xs">Departmental Score Reports</h2>
           <p class="font-body-lg text-body-lg text-secondary">
             Official tabulation results for the current intramural season.
           </p>
         </div>
-        <div class="flex gap-sm">
+        <div class="flex flex-wrap gap-sm">
           <button
             class="px-md py-sm bg-surface-container-lowest border border-outline-variant text-on-surface rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md flex items-center gap-xs disabled:opacity-50 disabled:cursor-not-allowed"
             type="button"
@@ -105,12 +129,12 @@
         </div>
       </div>
 
-      <div class="flex items-center gap-md bg-surface-container-lowest border border-outline-variant rounded-lg p-1 print:hidden">
-        <div class="inline-flex gap-1">
+      <div class="flex flex-col sm:flex-row sm:items-center gap-md bg-surface-container-lowest border border-outline-variant rounded-lg p-1 print:hidden">
+        <div class="inline-flex gap-1 overflow-x-auto">
           @for (department of departments(); track department.id) {
             <button
               type="button"
-              class="px-lg py-xs rounded-md font-label-md text-label-md transition-colors"
+              class="px-lg py-xs rounded-md font-label-md text-label-md transition-colors whitespace-nowrap shrink-0"
               [class.bg-on-surface]="selectedDepartment()?.id === department.id"
               [class.text-surface-container-lowest]="selectedDepartment()?.id === department.id"
               [class.font-semibold]="selectedDepartment()?.id === department.id"
@@ -121,7 +145,7 @@
             </button>
           }
         </div>
-        <div class="h-6 w-px bg-outline-variant"></div>
+        <div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
         <div class="flex items-center gap-xs text-secondary font-body-sm text-body-sm px-sm">
           <span class="material-symbols-outlined text-[16px]">info</span>
           Showing official finalized scores.
@@ -147,7 +171,7 @@
             </p>
           </div>
           <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
+            <table class="w-full min-w-[560px] text-left border-collapse">
               <thead>
                 <tr class="border-b-2 border-on-surface">
                   <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider">
@@ -208,15 +232,15 @@
               </tfoot>
             </table>
           </div>
-          <div class="px-xl py-xl flex justify-around gap-xl">
+          <div class="px-md sm:px-xl py-xl flex flex-col sm:flex-row justify-around gap-xl print:flex-row">
             <div class="text-center">
               <p class="font-label-md text-label-md font-semibold text-on-surface uppercase">Melvin Reston</p>
-              <div class="border-t border-on-surface w-56 mx-auto mb-xs"></div>
+              <div class="border-t border-on-surface w-56 max-w-full mx-auto mb-xs"></div>
               <p class="font-label-md text-label-md text-on-surface">Chairman, Digitized Tabulation</p>
             </div>
             <div class="text-center">
               <p class="font-label-md text-label-md font-semibold text-on-surface uppercase">Ronan C. Ybañez</p>
-              <div class="border-t border-on-surface w-56 mx-auto mb-xs"></div>
+              <div class="border-t border-on-surface w-56 max-w-full mx-auto mb-xs"></div>
               <p class="font-label-md text-label-md text-on-surface">Overall Chairman</p>
             </div>
           </div>

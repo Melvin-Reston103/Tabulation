@@ -1,15 +1,29 @@
 <div class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden">
+  @if (mobileMenuOpen()) {
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden" (click)="closeMobileMenu()"></div>
+  }
   <nav
-    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 transition-transform duration-300 ease-in-out lg:translate-x-0"
+    [class.-translate-x-full]="!mobileMenuOpen()"
+    [class.translate-x-0]="mobileMenuOpen()"
   >
-    <div class="mb-xl flex items-center gap-md">
-      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
-        SMC
+    <div class="mb-xl flex items-center justify-between gap-md">
+      <div class="flex items-center gap-md">
+        <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
+          SMC
+        </div>
+        <div>
+          <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+          <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
+        </div>
       </div>
-      <div>
-        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
-        <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
-      </div>
+      <button
+        class="lg:hidden text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-1 rounded-full hover:bg-surface-container-high"
+        type="button"
+        (click)="closeMobileMenu()"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
     <button
       class="w-full bg-tertiary-container text-on-tertiary-container hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors py-sm px-md rounded font-label-md text-label-md mb-lg flex items-center justify-center gap-sm"
@@ -17,27 +31,28 @@
       <span class="material-symbols-outlined text-[18px]">add</span>
       New Event
     </button>
-    <div class="flex-1 flex flex-col gap-sm">
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+    <div class="flex-1 flex flex-col gap-sm overflow-y-auto">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">school</span>
         <span>High School Department</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/college-department" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">account_balance</span>
         <span>College Department</span>
       </a>
       <a
         class="flex items-center gap-md px-md py-sm rounded text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container hover:bg-surface-container-high transition-colors"
         href="#"
+        (click)="closeMobileMenu()"
       >
         <span class="material-symbols-outlined">sports_esports</span>
         <span>Games</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/reports">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/reports" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">assessment</span>
         <span>Reports</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">visibility</span>
         <span>Viewing</span>
       </a>
@@ -55,11 +70,20 @@
   </nav>
 
   <header
-    class="bg-surface text-primary font-headline-sm text-headline-sm fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64 duration-200 ease-in-out"
+    class="bg-surface text-primary font-headline-sm text-headline-sm fixed top-0 right-0 left-0 lg:left-64 z-40 border-b border-outline-variant flex justify-between items-center h-16 px-md sm:px-lg lg:px-margin-desktop duration-200 ease-in-out"
   >
-    <div class="font-headline-sm text-headline-sm font-bold text-on-surface">Games Management</div>
-    <div class="flex items-center gap-md">
-      <div class="relative w-64">
+    <div class="flex items-center gap-sm min-w-0">
+      <button
+        class="lg:hidden -ml-2 text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-2 rounded-full hover:bg-surface-container shrink-0"
+        type="button"
+        (click)="toggleMobileMenu()"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="font-headline-sm text-headline-sm font-bold text-on-surface truncate">Games Management</div>
+    </div>
+    <div class="flex items-center gap-xs sm:gap-md">
+      <div class="relative w-64 hidden lg:block">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
         <input
           class="w-full bg-surface-container-low border border-outline-variant rounded-full py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
@@ -67,13 +91,13 @@
           type="text"
         />
       </div>
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">notifications</span>
       </button>
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">help_outline</span>
       </button>
-      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer">
+      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer shrink-0">
         <img
           alt="Admin Avatar"
           class="w-full h-full object-cover"
@@ -84,16 +108,16 @@
   </header>
 
   <main
-    class="ml-64 mt-16 p-margin-desktop w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background"
+    class="lg:ml-64 mt-16 p-md sm:p-lg lg:p-margin-desktop w-full lg:w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background"
     (click)="closeActionMenu()"
   >
     <div class="max-w-container-max mx-auto space-y-xl">
-      <div class="flex justify-between items-end">
+      <div class="flex flex-col gap-md lg:flex-row lg:justify-between lg:items-end">
         <div>
-          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Tournament Roster</h2>
+          <h2 class="text-headline-lg-mobile lg:text-headline-lg font-bold text-on-surface mb-xs">Tournament Roster</h2>
           <p class="font-body-lg text-body-lg text-secondary">Manage and track all scheduled and ongoing events.</p>
         </div>
-        <div class="flex gap-sm">
+        <div class="flex flex-wrap gap-sm">
           <select
             class="bg-surface-container-lowest border border-outline-variant rounded font-label-md text-label-md py-sm px-md focus:ring-tertiary-container focus:border-tertiary-container text-secondary"
             [value]="selectedDepartment()"
@@ -123,8 +147,8 @@
       </div>
 
       <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
-        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface">
-          <div class="relative w-64">
+        <div class="px-lg py-md border-b border-outline-variant flex items-center gap-sm bg-surface">
+          <div class="relative w-full sm:w-64">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
             <input
               class="w-full bg-surface-container-lowest border border-outline-variant rounded py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
@@ -134,12 +158,12 @@
               (input)="searchQuery.set($any($event.target).value)"
             />
           </div>
-          <button class="p-xs text-secondary hover:text-on-surface rounded hover:bg-surface-container-high transition-colors" type="button">
+          <button class="p-xs text-secondary hover:text-on-surface rounded hover:bg-surface-container-high transition-colors shrink-0" type="button">
             <span class="material-symbols-outlined text-[20px]">filter_list</span>
           </button>
         </div>
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
+          <table class="w-full min-w-[560px] text-left border-collapse">
             <thead>
               <tr class="border-b border-outline-variant bg-surface-container-low">
                 <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider w-16">No.</th>

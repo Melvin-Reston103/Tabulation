@@ -61,6 +61,16 @@ export class CollegeDepartment {
   private readonly gamesApi = inject(GamesApi);
   private readonly departmentsApi = inject(Departments);
 
+  protected readonly mobileMenuOpen = signal(false);
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen.update((open) => !open);
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
+
   protected readonly department = signal<Department | null>(null);
   protected readonly businessFaction = computed(() => this.department()?.factions[0] ?? null);
   protected readonly educationFaction = computed(() => this.department()?.factions[1] ?? null);

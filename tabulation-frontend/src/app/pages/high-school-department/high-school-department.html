@@ -1,19 +1,29 @@
 <div class="bg-background text-on-background min-h-screen">
+  @if (mobileMenuOpen()) {
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden" (click)="closeMobileMenu()"></div>
+  }
   <header
-    class="bg-surface fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64"
+    class="bg-surface fixed top-0 right-0 left-0 lg:left-64 z-40 border-b border-outline-variant flex justify-between items-center h-16 px-md sm:px-lg lg:px-margin-desktop"
   >
-    <div class="flex items-center gap-sm">
-      <span class="font-headline-sm text-headline-sm font-extrabold text-on-surface">SMC Tabulation</span>
+    <div class="flex items-center gap-sm min-w-0">
+      <button
+        class="lg:hidden -ml-2 text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container shrink-0"
+        type="button"
+        (click)="toggleMobileMenu()"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <span class="font-headline-sm text-headline-sm font-extrabold text-on-surface truncate">SMC Tabulation</span>
     </div>
-    <div class="flex items-center gap-md">
-      <button class="text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
+    <div class="flex items-center gap-xs sm:gap-md">
+      <button class="hidden sm:inline-flex text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
         <span class="material-symbols-outlined">notifications</span>
       </button>
-      <button class="text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
+      <button class="hidden sm:inline-flex text-on-surface-variant hover:text-on-surface duration-200 ease-in-out p-xs rounded-full">
         <span class="material-symbols-outlined">help_outline</span>
       </button>
       <img
-        class="w-8 h-8 rounded-full border border-outline-variant"
+        class="w-8 h-8 rounded-full border border-outline-variant shrink-0"
         alt="Admin Avatar"
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhaXlOz5S3DeuduuFPqugp9Tl-5NRMtH0CQL6gcQ2bMfIgPhkQ7cmpD7gBnZxxGH2ChTsIduiuCn2jGfudkO1sSvyJkaKzAMm-TxGoE2vP_B78YVpmrnqmqGqnwtMxoIgPXBjpp0mgmfTvCuwqTE3aKeyJJVCEiHQjJcayhowugQgOZn7u1UUiyn37sVakTjqhiCRVvax1EzqvuTGbMRE04cLcmVMxsjFLZJ0yOyDHrK7IhmAX_IdLWg"
       />
@@ -21,11 +31,22 @@
   </header>
 
   <nav
-    class="bg-surface-container-lowest h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+    class="bg-surface-container-lowest h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 transition-transform duration-300 ease-in-out lg:translate-x-0"
+    [class.-translate-x-full]="!mobileMenuOpen()"
+    [class.translate-x-0]="mobileMenuOpen()"
   >
-    <div class="mb-xl px-sm">
-      <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
-      <p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Admin Command Center</p>
+    <div class="mb-xl px-sm flex items-center justify-between gap-md">
+      <div>
+        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+        <p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Admin Command Center</p>
+      </div>
+      <button
+        class="lg:hidden text-on-surface-variant hover:text-on-surface transition-colors p-1 rounded-full hover:bg-surface-container-high"
+        type="button"
+        (click)="closeMobileMenu()"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
     <button
       class="bg-[#3B82F6] text-on-primary rounded-lg py-sm px-md flex items-center justify-center gap-xs font-label-md text-label-md mb-lg hover:bg-opacity-90 transition-colors w-full"
@@ -33,36 +54,37 @@
       <span class="material-symbols-outlined text-[18px]">add</span>
       New Event
     </button>
-    <ul class="flex-1 space-y-xs font-body-md text-body-md">
+    <ul class="flex-1 space-y-xs font-body-md text-body-md overflow-y-auto">
       <li>
         <a
           class="text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container flex items-center gap-md py-sm px-sm bg-surface-container-high rounded-l-md"
           href="#"
+          (click)="closeMobileMenu()"
         >
           <span class="material-symbols-outlined" data-weight="fill">school</span>
           High School Department
         </a>
       </li>
       <li>
-        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/college-department">
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/college-department" (click)="closeMobileMenu()">
           <span class="material-symbols-outlined">account_balance</span>
           College Department
         </a>
       </li>
       <li>
-        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/games">
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/games" (click)="closeMobileMenu()">
           <span class="material-symbols-outlined">sports_esports</span>
           Games
         </a>
       </li>
       <li>
-        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/reports">
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/reports" (click)="closeMobileMenu()">
           <span class="material-symbols-outlined">assessment</span>
           Reports
         </a>
       </li>
       <li>
-        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/viewing">
+        <a class="text-secondary hover:bg-surface-container-high transition-colors flex items-center gap-md py-sm px-sm rounded-md" routerLink="/viewing" (click)="closeMobileMenu()">
           <span class="material-symbols-outlined">visibility</span>
           Viewing
         </a>
@@ -86,9 +108,9 @@
     </div>
   </nav>
 
-  <main class="ml-64 mt-16 p-margin-desktop min-h-[calc(100vh-4rem)]">
+  <main class="lg:ml-64 mt-16 p-md sm:p-lg lg:p-margin-desktop min-h-[calc(100vh-4rem)]">
     <div class="mb-xl">
-      <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">High School Department</h2>
+      <h2 class="text-headline-lg-mobile lg:text-headline-lg font-bold text-on-surface mb-xs">High School Department</h2>
       <p class="font-body-md text-body-md text-on-surface-variant">Live overview of Faction standings and upcoming events.</p>
     </div>
 
@@ -135,11 +157,11 @@
     </section>
 
     <section class="bg-surface-container-lowest border border-[#E2E8F0] rounded-xl overflow-hidden">
-      <div class="p-lg border-b border-[#E2E8F0] flex justify-between items-center bg-surface-bright">
+      <div class="p-lg border-b border-[#E2E8F0] flex flex-col gap-sm sm:flex-row sm:justify-between sm:items-center bg-surface-bright">
         <h3 class="font-headline-sm text-headline-sm text-on-surface">Table of Events</h3>
-        <div class="flex items-center gap-sm">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-sm">
           <button
-            class="px-md py-xs rounded border border-outline-variant text-error font-label-md text-label-md hover:bg-error-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-xs"
+            class="px-md py-xs rounded border border-outline-variant text-error font-label-md text-label-md hover:bg-error-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-xs"
             type="button"
             [disabled]="isResettingAll()"
             (click)="resetAllScores()"
@@ -147,7 +169,7 @@
             <span class="material-symbols-outlined text-[16px]">restart_alt</span>
             {{ isResettingAll() ? 'Re-zeroing...' : 'Re-zero All Scores' }}
           </button>
-          <div class="relative w-64">
+          <div class="relative w-full sm:w-64">
             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
             <input
               class="w-full bg-surface-container-lowest border border-outline-variant rounded py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
@@ -160,7 +182,7 @@
         </div>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+        <table class="w-full min-w-[640px] text-left border-collapse">
           <thead>
             <tr class="border-b border-[#E2E8F0] bg-surface-container-lowest">
               <th class="p-sm px-lg font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider sticky top-0">Event Name</th>

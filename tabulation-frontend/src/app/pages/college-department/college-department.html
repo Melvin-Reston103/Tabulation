@@ -1,15 +1,29 @@
 <div class="bg-background text-on-background font-body-md text-body-md antialiased h-screen flex overflow-hidden">
+  @if (mobileMenuOpen()) {
+    <div class="fixed inset-0 bg-black/50 z-40 lg:hidden" (click)="closeMobileMenu()"></div>
+  }
   <nav
-    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50"
+    class="bg-surface-container-lowest text-primary font-body-md text-body-md h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-lg px-md z-50 transition-transform duration-300 ease-in-out lg:translate-x-0"
+    [class.-translate-x-full]="!mobileMenuOpen()"
+    [class.translate-x-0]="mobileMenuOpen()"
   >
-    <div class="mb-xl flex items-center gap-md">
-      <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
-        SMC
+    <div class="mb-xl flex items-center justify-between gap-md">
+      <div class="flex items-center gap-md">
+        <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-headline-md font-bold shrink-0">
+          SMC
+        </div>
+        <div>
+          <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
+          <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
+        </div>
       </div>
-      <div>
-        <h1 class="font-headline-md text-headline-md font-bold text-on-surface">SMC Tabulation</h1>
-        <p class="font-body-sm text-body-sm text-secondary">Admin Command Center</p>
-      </div>
+      <button
+        class="lg:hidden text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-1 rounded-full hover:bg-surface-container-high"
+        type="button"
+        (click)="closeMobileMenu()"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
     </div>
     <button
       class="w-full bg-tertiary-container text-on-tertiary-container hover:bg-on-tertiary-fixed-variant hover:text-white transition-colors py-sm px-md rounded font-label-md text-label-md mb-lg flex items-center justify-center gap-sm"
@@ -17,27 +31,28 @@
       <span class="material-symbols-outlined text-[18px]">add</span>
       New Event
     </button>
-    <div class="flex-1 flex flex-col gap-sm">
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department">
+    <div class="flex-1 flex flex-col gap-sm overflow-y-auto">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/high-school-department" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">school</span>
         <span>High School Department</span>
       </a>
       <a
         class="flex items-center gap-md px-md py-sm rounded text-on-tertiary-container font-bold border-r-4 border-on-tertiary-container hover:bg-surface-container-high transition-colors"
         href="#"
+        (click)="closeMobileMenu()"
       >
         <span class="material-symbols-outlined">account_balance</span>
         <span>College Department</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/games" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">sports_esports</span>
         <span>Games</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/reports">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/reports" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">assessment</span>
         <span>Reports</span>
       </a>
-      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing">
+      <a class="flex items-center gap-md px-md py-sm rounded text-secondary hover:bg-surface-container-high transition-colors" routerLink="/viewing" (click)="closeMobileMenu()">
         <span class="material-symbols-outlined">visibility</span>
         <span>Viewing</span>
       </a>
@@ -55,11 +70,20 @@
   </nav>
 
   <header
-    class="bg-surface text-primary font-headline-sm text-headline-sm fixed top-0 right-0 w-[calc(100%-16rem)] z-40 border-b border-outline-variant flex justify-between items-center h-16 px-margin-desktop ml-64 duration-200 ease-in-out"
+    class="bg-surface text-primary font-headline-sm text-headline-sm fixed top-0 right-0 left-0 lg:left-64 z-40 border-b border-outline-variant flex justify-between items-center h-16 px-md sm:px-lg lg:px-margin-desktop duration-200 ease-in-out"
   >
-    <div class="font-headline-sm text-headline-sm font-extrabold text-on-surface">SMC Tabulation</div>
-    <div class="flex items-center gap-md">
-      <div class="relative w-64">
+    <div class="flex items-center gap-sm min-w-0">
+      <button
+        class="lg:hidden -ml-2 text-on-surface-variant hover:text-on-surface transition-colors duration-200 p-2 rounded-full hover:bg-surface-container shrink-0"
+        type="button"
+        (click)="toggleMobileMenu()"
+      >
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="font-headline-sm text-headline-sm font-extrabold text-on-surface truncate">SMC Tabulation</div>
+    </div>
+    <div class="flex items-center gap-xs sm:gap-md">
+      <div class="relative w-64 hidden lg:block">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
         <input
           class="w-full bg-surface-container-low border border-outline-variant rounded-full py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
@@ -67,13 +91,13 @@
           type="text"
         />
       </div>
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">notifications</span>
       </button>
-      <button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-on-surface-variant transition-colors">
+      <button class="hidden sm:flex w-10 h-10 rounded-full hover:bg-surface-container items-center justify-center text-on-surface-variant transition-colors">
         <span class="material-symbols-outlined">help_outline</span>
       </button>
-      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer">
+      <div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden ml-sm border border-outline-variant cursor-pointer shrink-0">
         <img
           alt="Admin Avatar"
           class="w-full h-full object-cover"
@@ -83,14 +107,14 @@
     </div>
   </header>
 
-  <main class="ml-64 mt-16 p-margin-desktop w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background">
+  <main class="lg:ml-64 mt-16 p-md sm:p-lg lg:p-margin-desktop w-full lg:w-[calc(100%-16rem)] h-[calc(100vh-4rem)] overflow-y-auto bg-background">
     <div class="max-w-container-max mx-auto space-y-xl">
-      <div class="flex justify-between items-end">
+      <div class="flex flex-col gap-md lg:flex-row lg:justify-between lg:items-end">
         <div>
-          <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">College Department Overview</h2>
+          <h2 class="text-headline-lg-mobile lg:text-headline-lg font-bold text-on-surface mb-xs">College Department Overview</h2>
           <p class="font-body-lg text-body-lg text-secondary">Real-time tabulation and monitoring for current semester events.</p>
         </div>
-        <div class="flex gap-sm">
+        <div class="flex flex-wrap gap-sm">
           <button class="px-md py-sm border border-outline-variant rounded text-secondary hover:bg-surface-container-low transition-colors font-label-md text-label-md flex items-center gap-xs">
             <span class="material-symbols-outlined text-[16px]">download</span>
             Export Data
@@ -160,11 +184,11 @@
       </div>
 
       <div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
-        <div class="p-lg border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+        <div class="p-lg border-b border-outline-variant flex flex-col gap-sm sm:flex-row sm:justify-between sm:items-center bg-surface-bright">
           <h3 class="font-headline-sm text-headline-sm text-on-surface">Table of Events</h3>
-          <div class="flex items-center gap-sm">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-sm">
             <button
-              class="px-md py-xs rounded border border-outline-variant text-error font-label-md text-label-md hover:bg-error-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-xs"
+              class="px-md py-xs rounded border border-outline-variant text-error font-label-md text-label-md hover:bg-error-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-xs"
               type="button"
               [disabled]="isResettingAll()"
               (click)="resetAllScores()"
@@ -172,7 +196,7 @@
               <span class="material-symbols-outlined text-[16px]">restart_alt</span>
               {{ isResettingAll() ? 'Re-zeroing...' : 'Re-zero All Scores' }}
             </button>
-            <div class="relative w-64">
+            <div class="relative w-full sm:w-64">
               <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
               <input
                 class="w-full bg-surface-container-lowest border border-outline-variant rounded py-xs pl-10 pr-4 font-body-sm text-body-sm focus:outline-none focus:border-tertiary-container focus:ring-1 focus:ring-tertiary-container transition-all"
@@ -185,7 +209,7 @@
           </div>
         </div>
         <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
+          <table class="w-full text-left border-collapse min-w-[640px]">
             <thead>
               <tr class="border-b border-outline-variant bg-surface-container-lowest">
                 <th class="py-md px-lg font-label-sm text-label-sm text-secondary uppercase tracking-wider w-1/3">Event Name</th>
@@ -273,7 +297,7 @@
       (click)="closeUpdateScoreModal()"
     >
       <div
-        class="w-full max-w-xl rounded-lg bg-surface-container-lowest border border-outline-variant shadow-lg flex flex-col"
+        class="w-full max-w-xl max-h-[90vh] rounded-lg bg-surface-container-lowest border border-outline-variant shadow-lg flex flex-col"
         role="dialog"
         aria-modal="true"
         aria-labelledby="update-score-modal-title"
@@ -314,9 +338,9 @@
           </div>
 
           <div class="space-y-md">
-            <div class="flex items-center justify-between p-md border border-outline-variant rounded bg-surface hover:border-on-tertiary-container transition-colors">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md p-md border border-outline-variant rounded bg-surface hover:border-on-tertiary-container transition-colors">
               <div class="flex items-center gap-md">
-                <div class="w-12 h-12 rounded bg-tertiary-container flex items-center justify-center text-on-tertiary font-headline-sm text-headline-sm">
+                <div class="w-12 h-12 rounded bg-tertiary-container flex items-center justify-center text-on-tertiary font-headline-sm text-headline-sm shrink-0">
                   B
                 </div>
                 <div>
@@ -326,9 +350,9 @@
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-sm">
+              <div class="grid grid-cols-3 sm:flex sm:items-center gap-sm">
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-on-tertiary-container]="businessRank() === 1"
                   [class.border-on-tertiary-container]="businessRank() === 1"
@@ -341,7 +365,7 @@
                   1st Place
                 </button>
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-surface-tint]="businessRank() === 2"
                   [class.border-surface-tint]="businessRank() === 2"
@@ -354,7 +378,7 @@
                   2nd Place
                 </button>
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-error-container]="businessRank() === 0"
                   [class.border-error]="businessRank() === 0"
@@ -369,9 +393,9 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-between p-md border border-outline-variant rounded bg-surface hover:border-on-tertiary-container transition-colors">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-md p-md border border-outline-variant rounded bg-surface hover:border-on-tertiary-container transition-colors">
               <div class="flex items-center gap-md">
-                <div class="w-12 h-12 rounded bg-surface-tint flex items-center justify-center text-on-tertiary font-headline-sm text-headline-sm">
+                <div class="w-12 h-12 rounded bg-surface-tint flex items-center justify-center text-on-tertiary font-headline-sm text-headline-sm shrink-0">
                   E
                 </div>
                 <div>
@@ -381,9 +405,9 @@
                   </p>
                 </div>
               </div>
-              <div class="flex items-center gap-sm">
+              <div class="grid grid-cols-3 sm:flex sm:items-center gap-sm">
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-on-tertiary-container]="educationRank() === 1"
                   [class.border-on-tertiary-container]="educationRank() === 1"
@@ -396,7 +420,7 @@
                   1st Place
                 </button>
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-surface-tint]="educationRank() === 2"
                   [class.border-surface-tint]="educationRank() === 2"
@@ -409,7 +433,7 @@
                   2nd Place
                 </button>
                 <button
-                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  class="w-full sm:w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
                   type="button"
                   [class.bg-error-container]="educationRank() === 0"
                   [class.border-error]="educationRank() === 0"
