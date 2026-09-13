@@ -8,7 +8,8 @@ import { Games as GamesApi } from '../../core/services/games';
 
 const DEPARTMENT_CODE = 'college';
 
-type FactionRank = 1 | 2;
+// 0 = Forfeit (0 pts), 1 = 1st Place (20 pts), 2 = 2nd Place (15 pts)
+type FactionRank = 0 | 1 | 2;
 
 interface GameScore {
   business: number;
@@ -258,8 +259,8 @@ export class CollegeDepartment {
     const educationId = this.educationFaction()?.id;
     const businessScore = game.scores.find((score) => score.factionId === businessId);
     const educationScore = game.scores.find((score) => score.factionId === educationId);
-    this.businessRank.set(businessScore ? (businessScore.rank === 1 ? 1 : 2) : 1);
-    this.educationRank.set(educationScore ? (educationScore.rank === 1 ? 1 : 2) : 2);
+    this.businessRank.set(this.toFactionRank(businessScore?.rank, 1));
+    this.educationRank.set(this.toFactionRank(educationScore?.rank, 2));
     this.isUpdateScoreModalOpen.set(true);
   }
 
@@ -271,15 +272,23 @@ export class CollegeDepartment {
     this.saveScoreError.set(null);
   }
 
-  // Ranks are mutually exclusive: assigning one faction a rank flips the other to the remaining rank.
+  private toFactionRank(rank: number | undefined, fallback: FactionRank): FactionRank {
+    if (rank === undefined) {
+      return fallback;
+    }
+    return rank === 0 ? 0 : rank === 1 ? 1 : 2;
+  }
+
+  // Ranks are mutually exclusive: a forfeit for one faction auto-wins the match for the other,
+  // otherwise assigning 1st/2nd flips the other faction to the remaining place.
   protected setBusinessRank(rank: FactionRank): void {
     this.businessRank.set(rank);
-    this.educationRank.set(rank === 1 ? 2 : 1);
+    this.educationRank.set(rank === 0 ? 1 : rank === 1 ? 2 : 1);
   }
 
   protected setEducationRank(rank: FactionRank): void {
     this.educationRank.set(rank);
-    this.businessRank.set(rank === 1 ? 2 : 1);
+    this.businessRank.set(rank === 0 ? 1 : rank === 1 ? 2 : 1);
   }
 
   protected saveScore(): void {

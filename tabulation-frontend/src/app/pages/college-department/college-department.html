@@ -307,7 +307,8 @@
               <h4 class="font-label-md text-label-md text-on-surface">Scoring Protocol</h4>
             </div>
             <p class="font-body-sm text-body-sm text-secondary ml-[28px]">
-              Assign 1st Place (20 pts) and 2nd Place (15 pts) to the opposing factions. Selection is mutually
+              Assign 1st Place (20 pts) and 2nd Place (15 pts) to the opposing factions, or mark a faction as
+              Forfeit (0 pts) — the opposing faction automatically wins with 20 pts. Selection is mutually
               exclusive.
             </p>
           </div>
@@ -352,6 +353,19 @@
                 >
                   2nd Place
                 </button>
+                <button
+                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  type="button"
+                  [class.bg-error-container]="businessRank() === 0"
+                  [class.border-error]="businessRank() === 0"
+                  [class.text-error]="businessRank() === 0"
+                  [class.border-outline-variant]="businessRank() !== 0"
+                  [class.text-secondary]="businessRank() !== 0"
+                  [class.hover:bg-surface-container-high]="businessRank() !== 0"
+                  (click)="setBusinessRank(0)"
+                >
+                  Forfeit
+                </button>
               </div>
             </div>
 
@@ -393,6 +407,19 @@
                   (click)="setEducationRank(2)"
                 >
                   2nd Place
+                </button>
+                <button
+                  class="w-24 py-2 rounded border text-center font-label-md text-label-md transition-colors"
+                  type="button"
+                  [class.bg-error-container]="educationRank() === 0"
+                  [class.border-error]="educationRank() === 0"
+                  [class.text-error]="educationRank() === 0"
+                  [class.border-outline-variant]="educationRank() !== 0"
+                  [class.text-secondary]="educationRank() !== 0"
+                  [class.hover:bg-surface-container-high]="educationRank() !== 0"
+                  (click)="setEducationRank(0)"
+                >
+                  Forfeit
                 </button>
               </div>
             </div>
