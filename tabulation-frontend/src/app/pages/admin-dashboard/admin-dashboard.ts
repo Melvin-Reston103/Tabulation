@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,4 +7,14 @@ import { RouterLink } from '@angular/router';
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.scss',
 })
-export class AdminDashboard {}
+export class AdminDashboard {
+  protected readonly mobileMenuOpen = signal(false);
+
+  toggleMobileMenu(): void {
+    this.mobileMenuOpen.update((open) => !open);
+  }
+
+  closeMobileMenu(): void {
+    this.mobileMenuOpen.set(false);
+  }
+}
