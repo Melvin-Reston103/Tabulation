@@ -19,8 +19,14 @@ builder.Services.Configure<JwtOptions>(
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.SectionName));
 
+var connectionString = ResolvePostgresConnectionString(builder.Configuration)
+    ?? throw new InvalidOperationException(
+        "No PostgreSQL connection string configured. Set 'ConnectionStrings:Default' " +
+        "(via appsettings, user-secrets, or the 'ConnectionStrings__Default' environment variable), " +
+        "or provide a 'DATABASE_URL' environment variable (postgres:// URI format, as used by most hosts).");
+
 builder.Services.AddDbContext<TabulationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+    options.UseNpgsql(connectionString));
 
 var jwtOptions = builder.Configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>()
     ?? throw new InvalidOperationException("Jwt configuration section is missing.");
@@ -89,3 +95,43 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+// Resolves the Postgres connection string from config, falling back to the
+// DATABASE_URL-style URI format used by Render/Railway/Heroku/Supabase, etc.
+static string? ResolvePostgresConnectionString(IConfiguration configuration)
+{
+    var configured = configuration.GetConnectionString("Default");
+    if (!string.IsNullOrWhiteSpace(configured))
+    {
+        return configured;
+    }
+
+    var databaseUrl = configuration["DATABASE_URL"] ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+    if (string.IsNullOrWhiteSpace(databaseUrl))
+    {
+        return null;
+    }
+
+    var uri = new Uri(databaseUrl);
+    var userInfo = uri.UserInfo.Split(':', 2);
+    var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+    var builder = new Npgsql.NpgsqlConnectionStringBuilder
+    {
+        Host = uri.Host,
+        Port = uri.Port > 0 ? uri.Port : 5432,
+        Database = uri.AbsolutePath.TrimStart('/'),
+        Username = Uri.UnescapeDataString(userInfo[0]),
+        Password = userInfo.Length > 1 ? Uri.UnescapeDataString(userInfo[1]) : string.Empty,
+        SslMode = string.Equals(query["sslmode"], "require", StringComparison.OrdinalIgnoreCase)
+            ? Npgsql.SslMode.Require
+            : Npgsql.SslMode.Prefer,
+    };
+
+    if (string.Equals(query["channel_binding"], "require", StringComparison.OrdinalIgnoreCase))
+    {
+        builder.ChannelBinding = Npgsql.ChannelBinding.Require;
+    }
+
+    return builder.ConnectionString;
+}
+
