@@ -94,6 +94,15 @@ using (var scope = app.Services.CreateScope())
     await DbSeeder.SeedAsync(db);
 }
 
+app.MapGet("/health", () =>
+{
+    return Results.Ok(new
+    {
+        status = "ok",
+        timestamp = DateTime.UtcNow
+    });
+});
+
 app.Run();
 
 // Resolves the Postgres connection string from config, falling back to the
