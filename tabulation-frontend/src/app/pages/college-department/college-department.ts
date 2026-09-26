@@ -289,16 +289,12 @@ export class CollegeDepartment {
     return rank === 0 ? 0 : rank === 1 ? 1 : 2;
   }
 
-  // Ranks are mutually exclusive: a forfeit for one faction auto-wins the match for the other,
-  // otherwise assigning 1st/2nd flips the other faction to the remaining place.
   protected setBusinessRank(rank: FactionRank): void {
     this.businessRank.set(rank);
-    this.educationRank.set(rank === 0 ? 1 : rank === 1 ? 2 : 1);
   }
 
   protected setEducationRank(rank: FactionRank): void {
     this.educationRank.set(rank);
-    this.businessRank.set(rank === 0 ? 1 : rank === 1 ? 2 : 1);
   }
 
   protected saveScore(): void {
